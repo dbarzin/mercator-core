@@ -1,0 +1,22 @@
+<?php
+
+namespace Mercator\Core\Factories;
+
+use Mercator\Core\Models\Lan;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
+
+class LanFactory extends Factory
+{
+    protected $model = Lan::class;
+
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ];
+    }
+}
