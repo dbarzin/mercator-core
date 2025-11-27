@@ -29,7 +29,7 @@ class Document extends Model
     protected $fillable = [
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return DocumentFactory::new();
     }

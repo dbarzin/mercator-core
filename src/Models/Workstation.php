@@ -93,7 +93,7 @@ class Workstation extends Model implements HasIcon
         'deleted_at',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return WorkstationFactory::new();
     }

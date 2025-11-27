@@ -31,7 +31,7 @@ class CPEVendor extends Model
         'name',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return CPEVendorFactory::new();
     }

@@ -32,7 +32,7 @@ class Permission extends Model
         'deleted_at',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return PermissionFactory::new();
     }

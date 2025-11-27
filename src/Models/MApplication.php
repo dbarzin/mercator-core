@@ -69,7 +69,7 @@ class MApplication extends Model implements HasIcon
         'next_update',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return MApplicationFactory::new();
     }

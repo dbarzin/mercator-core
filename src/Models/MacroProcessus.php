@@ -3,7 +3,6 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\MacroProcessusFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,7 +47,7 @@ class MacroProcessus extends Model
         'deleted_at',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return MacroProcessusFactory::new();
     }

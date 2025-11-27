@@ -60,7 +60,7 @@ class DataProcessing extends Model
         'lawfulness_consent',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return DataProcessingFactory::new();
     }

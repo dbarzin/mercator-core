@@ -44,7 +44,7 @@ class Building extends Model implements HasIcon
         'icon_id',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return BuildingFactory::new();
     }

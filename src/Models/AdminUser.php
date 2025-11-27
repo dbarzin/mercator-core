@@ -48,7 +48,7 @@ class AdminUser extends Model
         'deleted_at',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return AdminUserFactory::new();
     }

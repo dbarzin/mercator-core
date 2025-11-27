@@ -41,7 +41,7 @@ class Certificate extends Model
         'deleted_at',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return CertificateFactory::new();
     }

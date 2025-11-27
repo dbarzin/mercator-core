@@ -47,7 +47,7 @@ class Entity extends Model implements HasIcon
         'parent_entity_id',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return EntityFactory::new();
     }

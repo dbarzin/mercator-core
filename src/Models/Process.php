@@ -53,7 +53,7 @@ class Process extends Model implements HasIcon
         'deleted_at',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return ProcessFactory::new();
     }

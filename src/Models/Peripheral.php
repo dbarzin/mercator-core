@@ -55,7 +55,7 @@ class Peripheral extends Model implements HasIcon
         'deleted_at',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function factory(): Factory
     {
         return PeripheralFactory::new();
     }
