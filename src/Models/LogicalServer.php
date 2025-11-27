@@ -38,6 +38,7 @@ class LogicalServer extends Model implements HasIcon
     protected $fillable = [
         'name',
         'type',
+        'icon_id',
         'active',
         'description',
         'operating_system',
