@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityFactory;
 use Mercator\Core\Factories\UserFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,7 +56,7 @@ class Activity extends Model
 
     protected static function newFactory(): Factory
     {
-        return UserFactory::new();
+        return ActivityFactory::new();
     }
 
     /** @return BelongsToMany<Process, $this> */
