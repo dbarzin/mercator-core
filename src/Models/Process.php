@@ -2,7 +2,7 @@
 
 namespace Mercator\Core\Models;
 
-use App\Contracts\HasIcon;
+use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\ProcessFactory;
