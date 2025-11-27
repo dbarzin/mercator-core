@@ -2,6 +2,7 @@
 
 namespace Mercator\Core\Traits;
 
+use Illuminate\Support\Facades\Auth;
 use Mercator\Core\Models\AuditLog;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,11 +38,11 @@ trait Auditable
      */
     protected static function audit(string $description, Model $model): void
     {
-        AuditLog::create([
+        AuditLog::query()->create([
             'description' => $description,
             'subject_id' => $model->id ?? null,
             'subject_type' => $model::class,
-            'user_id' => auth()->id() ?? null,
+            'user_id' => Auth::id(),
             'properties' => substr($model, 0, 65534),
             'host' => request()->ip() ?? null,
         ]);

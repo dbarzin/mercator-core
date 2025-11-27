@@ -2,7 +2,7 @@
 
 // app/Contracts/HasIcon.php
 
-namespace App\Contracts;
+namespace Mercator\Core\Contracts;
 
 interface HasIcon
 {
