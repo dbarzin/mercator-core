@@ -35,7 +35,7 @@ class SecurityControl extends Model
         'description',
     ];
 
-    protected static function factory(): Factory
+    public static function factory(): Factory
     {
         return SecurityControlFactory::new();
     }

@@ -47,7 +47,7 @@ class PhysicalSecurityDevice extends Model implements HasIcon
         'bay_id',
     ];
 
-    protected static function factory(): Factory
+    public static function factory(): Factory
     {
         return PhysicalSecurityDeviceFactory::new();
     }

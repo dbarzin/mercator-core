@@ -30,7 +30,7 @@ class ActivityImpact extends Model
     protected $fillable = [
     ];
 
-    protected static function factory(): Factory
+    public static function factory(): Factory
     {
         return ActivityImpactFactory::new();
     }

@@ -32,7 +32,7 @@ class CPEProduct extends Model
         'name',
     ];
 
-    protected static function factory(): Factory
+    public static function factory(): Factory
     {
         return CPEProductFactory::new();
     }

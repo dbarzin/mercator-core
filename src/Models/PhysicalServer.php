@@ -59,7 +59,7 @@ class PhysicalServer extends Model implements HasIcon
         'deleted_at',
     ];
 
-    protected static function factory(): Factory
+    public static function factory(): Factory
     {
         return PhysicalServerFactory::new();
     }

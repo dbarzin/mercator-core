@@ -64,7 +64,7 @@ class LogicalFlow extends Model
         'action',
     ];
 
-    protected static function factory(): Factory
+    public static function factory(): Factory
     {
         return LogicalFlowFactory::new();
     }

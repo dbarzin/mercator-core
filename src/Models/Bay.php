@@ -41,7 +41,7 @@ class Bay extends Model
         'deleted_at',
     ];
 
-    protected static function factory(): Factory
+    public static function factory(): Factory
     {
         return BayFactory::new();
     }

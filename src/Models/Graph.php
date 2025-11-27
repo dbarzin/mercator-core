@@ -33,7 +33,7 @@ class Graph extends Model
         'content',
     ];
 
-    protected static function factory(): Factory
+    public static function factory(): Factory
     {
         return GraphFactory::new();
     }
