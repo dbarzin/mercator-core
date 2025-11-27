@@ -10,10 +10,7 @@
   },
   "require": {
     "php": "^8.2",
-    "illuminate/support": "^11.0",
-    "illuminate/database": "^11.46",
-    "illuminate/notifications": "^11.46",
-    "laravel/passport": "^13.4"
+    "laravel/framework": "^11.46"
   },
   "extra": {
     "laravel": {

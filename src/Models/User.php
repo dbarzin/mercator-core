@@ -7,22 +7,17 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Passport\HasApiTokens;
-use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
-use LdapRecord\Laravel\Auth\HasLdapUser;
-use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use Mercator\Core\Factories\UserFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements LdapAuthenticatable
+class User extends Authenticatable
 {
-    use AuthenticatesWithLdap, HasApiTokens, HasFactory, HasLdapUser, Notifiable, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected string $table = 'users';
+    protected $table = 'users';
 
-    protected array $hidden = [
+    protected $hidden = [
         'remember_token',
         'password'
     ];
