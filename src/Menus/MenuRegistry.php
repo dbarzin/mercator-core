@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Menus;
+namespace Mercator\Core\Menus;
 
 class MenuRegistry
 {
