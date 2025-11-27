@@ -1,0 +1,22 @@
+{
+  "name": "sourcentis/mercator-core",
+  "description": "Mercator core services (modules, licensing, menus, domain models).",
+  "type": "library",
+  "license": "GPL-3.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "Mercator\\Core\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^11.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Mercator\\Core\\MercatorCoreServiceProvider"
+      ]
+    }
+  }
+}
