@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\ZoneAdminFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +35,11 @@ class ZoneAdmin extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return ZoneAdminFactory::new();
+    }
 
     /** @return HasMany<Annuaire, $this> */
     public function annuaires(): HasMany

@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\DatabaseFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -48,6 +51,11 @@ class Database extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return DatabaseFactory::new();
+    }
 
     /** @return HasMany<Flux, $this> */
     public function databaseSourceFluxes(): HasMany

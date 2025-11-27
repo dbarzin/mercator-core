@@ -3,6 +3,9 @@
 namespace Mercator\Core\Models;
 
 use App\Contracts\HasIcon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\SecurityDeviceFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +41,11 @@ class SecurityDevice extends Model implements HasIcon
         'description',
         'icon_id',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return SecurityDeviceFactory::new();
+    }
 
     /*
      * Implement HasIcon

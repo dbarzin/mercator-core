@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\LogicalFlowFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -60,6 +63,11 @@ class LogicalFlow extends Model
         'schedule',
         'action',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return LogicalFlowFactory::new();
+    }
 
     /* ⋅.˳˳.⋅ॱ˙˙ॱ⋅.˳˳.⋅ॱ˙˙ॱᐧ.˳˳.⋅  Sources  ⋅.˳˳.⋅ॱ˙˙ॱ⋅.˳˳.⋅ॱ˙˙ॱᐧ.˳˳.⋅ */
 

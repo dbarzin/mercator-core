@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\ManFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +41,11 @@ class Man extends Model
     public function Wans(): BelongsToMany
     {
         return $this->belongsToMany(Wan::class)->orderBy('name');
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return ManFactory::new();
     }
 
     /** @return BelongsToMany<Lan, $this> */

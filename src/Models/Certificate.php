@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\CertificateFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +40,11 @@ class Certificate extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return CertificateFactory::new();
+    }
 
     /** @return BelongsToMany<LogicalServer, $this> */
     public function logical_servers(): BelongsToMany

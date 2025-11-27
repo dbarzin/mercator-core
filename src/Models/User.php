@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,16 +14,20 @@ use Laravel\Passport\HasApiTokens;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\HasLdapUser;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\UserFactory;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
     use AuthenticatesWithLdap, HasApiTokens, HasFactory, HasLdapUser, Notifiable, SoftDeletes;
 
-    protected $table = 'users';
+    protected string $table = 'users';
 
-    protected $hidden = ['remember_token', 'password'];
+    protected array $hidden = [
+        'remember_token',
+        'password'
+    ];
 
-    // $dates est obsolète — préférez $casts
     protected $casts = [
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
@@ -30,7 +35,18 @@ class User extends Authenticatable implements LdapAuthenticatable
         'deleted_at' => 'datetime',
     ];
 
-    protected $fillable = ['login', 'name', 'email', 'password', 'granularity', 'language'];
+    protected $fillable = [
+        'login',
+        'name',
+        'email',
+        'password',
+        'granularity',
+        'language'];
+
+    protected static function newFactory(): Factory
+    {
+        return UserFactory::new();
+    }
 
     /**
      * Mutator mot de passe : hash seulement si nécessaire.

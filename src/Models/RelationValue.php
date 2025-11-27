@@ -2,9 +2,12 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\RelationValueFactory;
 
 /**
  * App\RelationValue
@@ -31,6 +34,11 @@ class RelationValue extends Model
 
     protected $fillable = [
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return RelationValueFactory::new();
+    }
 
     public function getDatePriceAttribute($value)
     {

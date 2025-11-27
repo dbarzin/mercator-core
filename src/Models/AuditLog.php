@@ -29,6 +29,7 @@ class AuditLog extends Model
         'properties' => 'collection',
     ];
 
+
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {

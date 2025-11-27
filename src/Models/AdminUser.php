@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\AdminUserFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,6 +47,11 @@ class AdminUser extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return AdminUserFactory::new();
+    }
 
     /** @return BelongsTo<DomaineAd, $this> */
     public function domain(): BelongsTo

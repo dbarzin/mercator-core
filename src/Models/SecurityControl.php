@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\SecurityControlFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,4 +34,10 @@ class SecurityControl extends Model
         'name',
         'description',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return SecurityControlFactory::new();
+    }
+
 }

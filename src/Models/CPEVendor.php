@@ -2,9 +2,12 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\CPEVendorFactory;
 
 /**
  * App\CPEVendor
@@ -27,6 +30,11 @@ class CPEVendor extends Model
         'part',
         'name',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return CPEVendorFactory::new();
+    }
 
     /** @return BelongsToMany<CPEProduct, $this> */
     public function products(): BelongsToMany

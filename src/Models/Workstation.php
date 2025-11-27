@@ -3,6 +3,9 @@
 namespace Mercator\Core\Models;
 
 use App\Contracts\HasIcon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\WorkstationFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -89,6 +92,11 @@ class Workstation extends Model implements HasIcon
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return WorkstationFactory::new();
+    }
 
     /*
      * Implement icon

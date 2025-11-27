@@ -2,10 +2,13 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\CPEProductFactory;
 
 /**
  * App\CPEProduct
@@ -28,6 +31,11 @@ class CPEProduct extends Model
         'cpe_vendor_id',
         'name',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return CPEProductFactory::new();
+    }
 
     /** @return BelongsToMany<CPEVersion, $this> */
     public function versions(): BelongsToMany

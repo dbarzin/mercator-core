@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\ExternalConnectedEntityFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,6 +48,11 @@ class ExternalConnectedEntity extends Model
         'src_desc',
         'dest_desc',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return ExternalConnectedEntityFactory::new();
+    }
 
     /** @return BelongsTo<Entity, $this> */
     public function entity(): BelongsTo

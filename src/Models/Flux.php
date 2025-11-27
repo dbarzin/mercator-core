@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\FluxFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,6 +47,11 @@ class Flux extends Model
         'crypted',
         'bidirectional',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return FluxFactory::new();
+    }
 
     public function sourceId(): ?string
     {

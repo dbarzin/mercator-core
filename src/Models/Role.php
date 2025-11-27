@@ -2,11 +2,14 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\RoleFactory;
 
 /**
  * App\Role
@@ -29,6 +32,11 @@ class Role extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return RoleFactory::new();
+    }
 
     protected static function booted(): void
     {

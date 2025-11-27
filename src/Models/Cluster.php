@@ -3,6 +3,9 @@
 namespace Mercator\Core\Models;
 
 use App\Contracts\HasIcon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\ClusterFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,6 +42,11 @@ class Cluster extends Model implements HasIcon
         'icon_id',
         'address_ip',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return ClusterFactory::new();
+    }
 
     /*
      * Implement HasIcon

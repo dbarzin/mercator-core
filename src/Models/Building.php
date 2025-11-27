@@ -3,6 +3,9 @@
 namespace Mercator\Core\Models;
 
 use App\Contracts\HasIcon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\BuildingFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,6 +43,11 @@ class Building extends Model implements HasIcon
         'building_id',
         'icon_id',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return BuildingFactory::new();
+    }
 
     /*
      * Implement HasIcon

@@ -3,6 +3,9 @@
 namespace Mercator\Core\Models;
 
 use App\Contracts\HasIcon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\PhysicalSecurityDeviceFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +46,11 @@ class PhysicalSecurityDevice extends Model implements HasIcon
         'building_id',
         'bay_id',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return PhysicalSecurityDeviceFactory::new();
+    }
 
     /*
      * Implement HasIcon

@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\StorageDeviceFactory;
 use Mercator\Core\Traits\Auditable;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,6 +44,11 @@ class StorageDevice extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return StorageDeviceFactory::new();
+    }
 
     /** @return BelongsTo<Site, $this> */
     public function site(): BelongsTo

@@ -3,6 +3,9 @@
 namespace Mercator\Core\Models;
 
 use App\Contracts\HasIcon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\EntityFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +46,11 @@ class Entity extends Model implements HasIcon
         'entity_type',
         'parent_entity_id',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return EntityFactory::new();
+    }
 
     /*
      * Implement HasIcon

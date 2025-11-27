@@ -2,6 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Factories\DocumentFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +28,11 @@ class Document extends Model
 
     protected $fillable = [
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return DocumentFactory::new();
+    }
 
     /** @return BelongsToMany<Activity, $this> */
     public function activities(): BelongsToMany
