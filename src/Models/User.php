@@ -14,7 +14,6 @@ use Laravel\Passport\HasApiTokens;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\HasLdapUser;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\UserFactory;
 
 class User extends Authenticatable implements LdapAuthenticatable
