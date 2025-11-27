@@ -14,6 +14,7 @@ git pull
 
 Create a new tag
 
+    git tag
     git tag v1.0.1
     git push origin v1.0.1
 

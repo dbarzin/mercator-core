@@ -2,7 +2,7 @@
 
 namespace Mercator\Core\Models;
 
-use App\Traits\Auditable;
+use Mercator\Core\Traits\Auditable;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

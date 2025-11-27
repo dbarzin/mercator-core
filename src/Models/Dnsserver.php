@@ -2,7 +2,7 @@
 
 namespace Mercator\Core\Models;
 
-use App\Traits\Auditable;
+use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
