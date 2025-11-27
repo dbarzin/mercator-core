@@ -43,7 +43,7 @@ class Cluster extends Model implements HasIcon
         'address_ip',
     ];
 
-    public static function factory(): Factory
+    protected static function newFactory(): Factory
     {
         return ClusterFactory::new();
     }

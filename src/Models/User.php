@@ -39,7 +39,7 @@ class User extends Authenticatable
         'granularity',
         'language'];
 
-    public static function factory(): Factory
+    protected static function newFactory(): Factory
     {
         return UserFactory::new();
     }

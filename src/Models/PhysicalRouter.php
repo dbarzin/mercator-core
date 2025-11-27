@@ -45,7 +45,7 @@ class PhysicalRouter extends Model
         'deleted_at',
     ];
 
-    public static function factory(): Factory
+    protected static function newFactory(): Factory
     {
         return PhysicalRouterFactory::new();
     }

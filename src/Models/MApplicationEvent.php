@@ -28,7 +28,7 @@ class MApplicationEvent extends Model
         'updated_at',
     ];
 
-    public static function factory(): Factory
+    protected static function newFactory(): Factory
     {
         return MApplicationEventFactory::new();
     }

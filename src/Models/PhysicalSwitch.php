@@ -45,7 +45,7 @@ class PhysicalSwitch extends Model
         'deleted_at',
     ];
 
-    public static function factory(): Factory
+    protected static function newFactory(): Factory
     {
         return PhysicalSwitchFactory::new();
     }

@@ -48,7 +48,7 @@ class Flux extends Model
         'bidirectional',
     ];
 
-    public static function factory(): Factory
+    protected static function newFactory(): Factory
     {
         return FluxFactory::new();
     }

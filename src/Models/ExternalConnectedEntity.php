@@ -49,7 +49,7 @@ class ExternalConnectedEntity extends Model
         'dest_desc',
     ];
 
-    public static function factory(): Factory
+    protected static function newFactory(): Factory
     {
         return ExternalConnectedEntityFactory::new();
     }

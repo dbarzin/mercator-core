@@ -43,7 +43,7 @@ class Man extends Model
         return $this->belongsToMany(Wan::class)->orderBy('name');
     }
 
-    public static function factory(): Factory
+    protected static function newFactory(): Factory
     {
         return ManFactory::new();
     }
