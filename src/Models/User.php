@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

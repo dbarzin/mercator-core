@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Mercator\Core\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

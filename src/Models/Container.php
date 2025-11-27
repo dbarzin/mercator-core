@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Mercator\Core\Models;
 
 use App\Contracts\HasIcon;
 use App\Traits\Auditable;
