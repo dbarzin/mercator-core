@@ -5,7 +5,7 @@ namespace Mercator\Core;
 use Illuminate\Support\ServiceProvider;
 use Mercator\Core\Menus\MenuRegistry;
 use Mercator\Core\Modules\ModuleRegistry;
-use Mercator\Core\Licensing\LicenseManager;
+use Mercator\Core\License\LicenseManager;
 
 class MercatorCoreServiceProvider extends ServiceProvider
 {

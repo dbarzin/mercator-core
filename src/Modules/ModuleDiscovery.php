@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules;
+namespace Mercator\Core\Modules;
 
 use Illuminate\Support\Arr;
 
