@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Mercator\Core\Menus\MenuRegistry;
 use Mercator\Core\Modules\ModuleRegistry;
 use Mercator\Core\License\LicenseManager;
+use Mercator\Core\Permissions\PermissionRegistry;
 
 class MercatorCoreServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,12 @@ class MercatorCoreServiceProvider extends ServiceProvider
             return new ModuleRegistry();
         });
         $this->app->alias(ModuleRegistry::class, 'mercator.modules');
+
+        // PermissionRegistry : registre central des permissions Mercator
+        $this->app->singleton(PermissionRegistry::class, function ($app) {
+            return new PermissionRegistry();
+        });
+        $this->app->alias(PermissionRegistry::class, 'mercator.permissions');
 
         // LicenseManager : gestion et validation de la licence Mercator
         $this->app->singleton(LicenseManager::class, function ($app) {

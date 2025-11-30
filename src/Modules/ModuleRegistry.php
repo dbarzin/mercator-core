@@ -3,6 +3,7 @@
 namespace Mercator\Core\Modules;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class ModuleRegistry
 {
@@ -16,6 +17,12 @@ class ModuleRegistry
 
     protected function reload(): void
     {
+        // 🔴 IMPORTANT : ne pas interroger une table qui n'existe pas
+        if (! Schema::hasTable('mercator_modules')) {
+            $this->modules = [];
+            return;
+        }
+
         $this->modules = DB::table('mercator_modules')
             ->get()
             ->keyBy('name')
@@ -90,4 +97,22 @@ class ModuleRegistry
 
         $this->reload();
     }
+
+    public function syncPermissions(string $module): void
+    {
+        $permissions = app('mercator.permissions')->forModule($module);
+
+        foreach ($permissions as $permission) {
+            DB::table('permissions')->updateOrInsert(
+                ['title' => $permission->title],
+                [
+                    'module'      => $module,
+                    'updated_at'  => now(),
+                    'created_at'  => now(),
+                ]
+            );
+        }
+    }
+
+
 }

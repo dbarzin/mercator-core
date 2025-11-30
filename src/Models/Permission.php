@@ -15,21 +15,20 @@ use Mercator\Core\Factories\PermissionFactory;
  */
 class Permission extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     public $table = 'permissions';
 
     protected array $dates = [
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     protected $fillable = [
         'title',
+        'module',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     protected static function newFactory(): Factory
