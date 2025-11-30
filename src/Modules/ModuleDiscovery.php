@@ -81,4 +81,21 @@ class ModuleDiscovery
 
         return $modules[$name] ?? null;
     }
+
+    public function findByNameOrPackage(string $arg): ?array
+    {
+        $modules = $this->discover();
+
+        foreach ($modules as $meta) {
+            if (strcasecmp($meta['name'], $arg) === 0) {
+                return $meta;
+            }
+            if (strcasecmp($meta['package'], $arg) === 0) {
+                return $meta;
+            }
+        }
+
+        return null;
+    }
+
 }

@@ -2,6 +2,8 @@
 
 namespace Mercator\Core\Menus;
 
+use Illuminate\Support\Facades\Log;
+
 class MenuRegistry
 {
     /**
@@ -35,6 +37,7 @@ class MenuRegistry
 
     public function addItem(string $sectionId, array $item): void
     {
+        Log::debug('MenuRegistry::addItem', ['sectionId' => $sectionId, 'item' => $item]);
         if (!isset($this->sections[$sectionId])) {
             $this->addSection($sectionId, ucfirst($sectionId));
         }
@@ -47,8 +50,9 @@ class MenuRegistry
         return $this->sections;
     }
 
-    public function getSection(string $sectionId): ?array
+    public function getItems(string $sectionId): ?array
     {
-        return $this->sections[$sectionId] ?? null;
+        Log::debug('MenuRegistry::getItems', ['sectionId' => $sectionId]);
+        return $this->sections[$sectionId]['items'] ?? null;
     }
 }
