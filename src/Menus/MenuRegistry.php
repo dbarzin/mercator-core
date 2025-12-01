@@ -37,7 +37,7 @@ class MenuRegistry
 
     public function addItem(string $sectionId, array $item): void
     {
-        Log::debug('MenuRegistry::addItem', ['sectionId' => $sectionId, 'item' => $item]);
+        // Log::debug('MenuRegistry::addItem', ['sectionId' => $sectionId, 'item' => $item]);
         if (!isset($this->sections[$sectionId])) {
             $this->addSection($sectionId, ucfirst($sectionId));
         }
@@ -52,7 +52,7 @@ class MenuRegistry
 
     public function getItems(string $sectionId): ?array
     {
-        Log::debug('MenuRegistry::getItems', ['sectionId' => $sectionId]);
+        // Log::debug('MenuRegistry::getItems', ['sectionId' => $sectionId]);
         return $this->sections[$sectionId]['items'] ?? null;
     }
 }

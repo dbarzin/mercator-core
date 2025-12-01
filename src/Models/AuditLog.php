@@ -36,11 +36,17 @@ class AuditLog extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public static function subjectURL(string $subject_type): string
+    public function subjectURL(): string
     {
-        return '/admin/'.
-            ($subject_type === 'App\\Models\\MApplication' ?
-                'applications' :
-                Str::plural(Str::snake(substr($subject_type, 4), '-')));
+        return AuditLog::url($this->subject_type, $this->subject_id);
     }
+
+    public static function URL(string $subject_type, string $subject_id): string {
+        return '/admin/'.
+            ($subject_type === 'Mercator\\Core\\Models\\MApplication' ?
+                'applications' :
+                Str::plural(Str::snake(Str::afterLast($subject_type, '\\'), '-'))).
+            '/' . $subject_id;
+    }
+
 }

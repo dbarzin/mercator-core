@@ -1,33 +1,33 @@
 {
-  "name": "sourcentis/mercator-core",
-  "description": "Mercator core services (modules, licensing, menus, domain models).",
-  "version": "1.0.21",
-  "type": "library",
-  "license": "GPL-3.0-or-later",
-  "autoload": {
-    "psr-4": {
-      "Mercator\\Core\\": "src/"
+    "name": "sourcentis/mercator-core",
+    "description": "Mercator core services (modules, licensing, menus, domain models).",
+    "version": "1.1.0",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Mercator\\Core\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.46",
+        "laravel/passport": "^12.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mercator\\Core\\MercatorCoreServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "larastan/larastan": "^3.0"
     }
-  },
-  "require": {
-    "php": "^8.2",
-    "laravel/framework": "^11.46",
-    "laravel/passport": "^12.3"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Mercator\\Core\\MercatorCoreServiceProvider"
-      ]
-    }
-  },
-  "config": {
-    "allow-plugins": {
-      "php-http/discovery": true
-    }
-  },
-  "require-dev": {
-    "phpstan/phpstan": "^2.1",
-    "larastan/larastan": "^3.0"
-  }
 }
