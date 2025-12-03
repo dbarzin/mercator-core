@@ -211,7 +211,7 @@ class LogicalFlow extends Model
         if ($this->physical_security_device_source_id !== null) {
             return 'PSECURITY_'.$this->physical_security_device_source_id;
         }
-        if ($this->device_source_id !== null) {
+        if ($this->security_device_source_id !== null) {
             return 'LSECURITY_'.$this->security_device_source_id;
         }
         if ($this->subnetwork_source_id !== null) {
