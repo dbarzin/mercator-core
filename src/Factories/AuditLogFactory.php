@@ -18,11 +18,13 @@ class AuditLogFactory extends Factory
             'subject_id' => $this->faker->randomNumber(),
             'subject_type' => $this->faker->word(),
             'properties' => $this->faker->word(),
-            'host' => $this->faker->word(),
+            'host' => $this->faker->ipv4(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
-            'user_id' => User::factory(),
-        ];
+            // Sélectionne un user aléatoire, ou en crée un si la table est vide
+            'user_id' => User::query()->inRandomOrder()->value('id')
+                ?? User::factory(),
+            ];
     }
 }

@@ -37,6 +37,7 @@ class SecurityDevice extends Model implements HasIcon
     protected $fillable = [
         'name',
         'type',
+        'address_ip',
         'attributes',
         'description',
         'icon_id',
