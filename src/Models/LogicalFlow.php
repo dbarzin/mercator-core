@@ -51,6 +51,7 @@ class LogicalFlow extends Model
         'storage_device_source_id',
         'workstation_source_id',
         'physical_security_device_source_id',
+        'security_device_source_id',
         // Destinations
         'logical_server_dest_id',
         'peripheral_dest_id',
@@ -58,6 +59,7 @@ class LogicalFlow extends Model
         'storage_device_dest_id',
         'workstation_dest_id',
         'physical_security_device_dest_id',
+        'security_device_dest_id',
         // Others
         'users',
         'schedule',
@@ -112,6 +114,11 @@ class LogicalFlow extends Model
     {
         return $this->belongsTo(Subnetwork::class, 'subnetwork_source_id');
     }
+    /** @return BelongsTo<SecurityDevice, $this> */
+    public function securityDeviceSource(): BelongsTo
+    {
+        return $this->belongsTo(SecurityDevice::class, 'security_device_source_id');
+    }
 
     /* ⋅.˳˳.⋅ॱ˙˙ॱ⋅.˳˳.⋅ॱ˙˙ॱᐧ.˳˳.⋅ Destinations ⋅.˳˳.⋅ॱ˙˙ॱ⋅.˳˳.⋅ॱ˙˙ॱᐧ.˳˳.⋅ */
 
@@ -156,6 +163,11 @@ class LogicalFlow extends Model
     {
         return $this->belongsTo(Subnetwork::class, 'subnetwork_dest_id');
     }
+    /** @return BelongsTo<SecurityDevice, $this> */
+    public function securityDeviceDest(): BelongsTo
+    {
+        return $this->belongsTo(SecurityDevice::class, 'security_device_dest_id');
+    }
 
     /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ IP ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
 
@@ -199,6 +211,9 @@ class LogicalFlow extends Model
         if ($this->physical_security_device_source_id !== null) {
             return 'PSECURITY_'.$this->physical_security_device_source_id;
         }
+        if ($this->device_source_id !== null) {
+            return 'LSECURITY_'.$this->security_device_source_id;
+        }
         if ($this->subnetwork_source_id !== null) {
             return 'SUBNETWORK_'.$this->subnetwork_source_id;
         }
@@ -225,6 +240,9 @@ class LogicalFlow extends Model
         }
         if ($this->physical_security_device_dest_id !== null) {
             return 'PSECURITY_'.$this->physical_security_device_dest_id;
+        }
+        if ($this->security_device_dest_id !== null) {
+            return 'LSECURITY_'.$this->security_device_dest_id;
         }
         if ($this->subnetwork_dest_id !== null) {
             return 'SUBNETWORK_'.$this->subnetwork_dest_id;
