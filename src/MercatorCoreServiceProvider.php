@@ -3,9 +3,9 @@
 namespace Mercator\Core;
 
 use Illuminate\Support\ServiceProvider;
+use Mercator\Core\License\LicenseService;
 use Mercator\Core\Menus\MenuRegistry;
 use Mercator\Core\Modules\ModuleRegistry;
-use Mercator\Core\License\LicenseManager;
 use Mercator\Core\Permissions\PermissionRegistry;
 
 class MercatorCoreServiceProvider extends ServiceProvider
@@ -37,12 +37,12 @@ class MercatorCoreServiceProvider extends ServiceProvider
         $this->app->alias(PermissionRegistry::class, 'mercator.permissions');
 
         // LicenseManager : gestion et validation de la licence Mercator
-        $this->app->singleton(LicenseManager::class, function ($app) {
-            return new LicenseManager(
-                config('mercator.licence') ?? env('MERCATOR_LICENCE')
+        $this->app->singleton(LicenseService::class, function ($app) {
+            return new LicenseService(
+                config('mercator.licence') ?? env('APP_LICENCE')
             );
         });
-        $this->app->alias(LicenseManager::class, 'mercator.license');
+        $this->app->alias(LicenseService::class, 'mercator.license');
     }
 
     /**
