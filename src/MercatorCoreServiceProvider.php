@@ -4,6 +4,7 @@ namespace Mercator\Core;
 
 use Illuminate\Support\ServiceProvider;
 use Mercator\Core\License\LicenseService;
+use Mercator\Core\License\LicenseToken;
 use Mercator\Core\Menus\MenuRegistry;
 use Mercator\Core\Modules\ModuleRegistry;
 use Mercator\Core\Permissions\PermissionRegistry;
@@ -38,9 +39,7 @@ class MercatorCoreServiceProvider extends ServiceProvider
 
         // LicenseManager : gestion et validation de la licence Mercator
         $this->app->singleton(LicenseService::class, function ($app) {
-            return new LicenseService(
-                config('mercator.licence') ?? env('APP_LICENCE')
-            );
+            return new LicenseService(new LicenseToken());
         });
         $this->app->alias(LicenseService::class, 'mercator.license');
     }

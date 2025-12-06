@@ -41,8 +41,13 @@ class LicenseService
      */
     public function hasModuleAccess(string $module): bool
     {
-        $local = LocalLicense::query()->first();
-        if (!$local) {
+        try {
+            $local = LocalLicense::query()->first();
+            if (!$local) {
+                return false;
+            }
+        } catch (\Throwable $e) {
+            logger()->error($e);
             return false;
         }
 
