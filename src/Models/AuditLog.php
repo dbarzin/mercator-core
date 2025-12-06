@@ -2,10 +2,12 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use Mercator\Core\Factories\AuditLogFactory;
 
 /**
  * App\AuditLog
@@ -29,6 +31,10 @@ class AuditLog extends Model
         'properties' => 'collection',
     ];
 
+    protected static function newFactory(): Factory
+    {
+        return AuditLogFactory::new();
+    }
 
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
