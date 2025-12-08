@@ -39,7 +39,7 @@ class MercatorCoreServiceProvider extends ServiceProvider
 
         // LicenseManager : gestion et validation de la licence Mercator
         $this->app->singleton(LicenseService::class, function ($app) {
-            return new LicenseService(new LicenseToken());
+            return new LicenseService();
         });
         $this->app->alias(LicenseService::class, 'mercator.license');
     }
@@ -50,9 +50,6 @@ class MercatorCoreServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishConfig();
-
-        // Ici tu peux ajouter d'autres bootstraps transverses du core
-        // (events, macros, routes internes si besoin, etc.)
     }
 
     /**
