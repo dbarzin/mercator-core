@@ -4,7 +4,6 @@ namespace Mercator\Core;
 
 use Illuminate\Support\ServiceProvider;
 use Mercator\Core\License\LicenseService;
-use Mercator\Core\License\LicenseToken;
 use Mercator\Core\Menus\MenuRegistry;
 use Mercator\Core\Modules\ModuleRegistry;
 use Mercator\Core\Permissions\PermissionRegistry;
