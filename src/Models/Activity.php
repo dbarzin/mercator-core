@@ -21,6 +21,8 @@ class Activity extends Model
 
     public $table = 'activities';
 
+    public $prefix = 'ACT_';
+
     public static array $searchable = [
         'name',
         'description',

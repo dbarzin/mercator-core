@@ -29,6 +29,7 @@ class Graph extends Model
 
     protected $fillable = [
         'name',
+        'class',
         'type',
         'content',
     ];

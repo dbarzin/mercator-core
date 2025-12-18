@@ -20,6 +20,8 @@ class Task extends Model
 
     public $table = 'tasks';
 
+    public $prefix = 'TASK_';
+
     public static array $searchable = [
         'name',
         'description',

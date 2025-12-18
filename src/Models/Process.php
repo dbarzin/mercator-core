@@ -23,6 +23,8 @@ class Process extends Model implements HasIcon
 
     public $table = 'processes';
 
+    public static $prefix = 'PROC_';
+
     public static array $searchable = [
         'name',
         'description',
