@@ -16,6 +16,8 @@ class Graph extends Model
 
     public $table = 'graphs';
 
+    public static string $prefix = 'GRAPH_';
+
     public static array $searchable = [
         'name',
         'type',

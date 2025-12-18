@@ -21,7 +21,7 @@ class Operation extends Model
 
     public $table = 'operations';
 
-    public $prefix = 'OPER_';
+    public static string $prefix = 'OPER_';
 
     public static array $searchable = [
         'name',
