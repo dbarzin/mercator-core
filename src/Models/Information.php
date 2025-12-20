@@ -20,6 +20,8 @@ class Information extends Model
 
     public $table = 'information';
 
+    public static string $prefix = 'INF_';
+
     public static array $searchable = [
         'name',
         'description',
