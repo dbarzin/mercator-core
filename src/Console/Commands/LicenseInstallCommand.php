@@ -76,25 +76,40 @@ class LicenseInstallCommand extends Command
             return Command::FAILURE;
         }
 
-        $this->info("Fetching license from server...");
+        $this->info("Fetching license from server: {$licenseServer}");
+        $this->info("License key: {$key}");
 
         try {
-            $response = Http::timeout(30)->get("{$licenseServer}/api/v1/licenses/download", [
-                'key' => $key,
-            ]);
+            // ✅ CORRECT - Clé dans l'URL, pas en query string
+            $url = "{$licenseServer}/api/v1/licenses/download/{$key}";
+            $this->info("Calling: {$url}");
+
+            $response = Http::timeout(30)->get($url);
 
             if (!$response->successful()) {
                 $this->error('Unable to fetch license from server');
+                $this->error("HTTP Status: " . $response->status());
                 $this->error('Response: ' . $response->body());
                 return Command::FAILURE;
             }
 
             $licenseData = $response->json();
 
+            if (!isset($licenseData['license_key'])) {
+                $this->error('Invalid license data received');
+                $this->error('Response: ' . json_encode($licenseData));
+                return Command::FAILURE;
+            }
+
+            $this->info("License fetched successfully!");
+            $this->line("Type: " . ($licenseData['type'] ?? 'unknown'));
+            $this->line("Issued to: " . ($licenseData['issued_to'] ?? 'N/A'));
+
             return $this->saveLicense($licenseData);
 
         } catch (Exception $e) {
             $this->error('Failed to download license: ' . $e->getMessage());
+            $this->error('Stack trace: ' . $e->getTraceAsString());
             return Command::FAILURE;
         }
     }

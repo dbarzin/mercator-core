@@ -12,7 +12,8 @@ return [
     |
     */
 
-    'server_url' => env('MERCATOR_LICENSE_SERVER', 'https://license.sourcentis.com'),
+    // 'server_url' => env('MERCATOR_LICENSE_SERVER', 'https://license.sourcentis.com'),
+    'server_url' => env('MERCATOR_LICENSE_SERVER', 'http://127.0.0.1:8000'),
 
     /*
     |--------------------------------------------------------------------------

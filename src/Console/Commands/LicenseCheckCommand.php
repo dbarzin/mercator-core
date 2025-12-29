@@ -13,8 +13,7 @@ class LicenseCheckCommand extends Command
      * @var string
      */
     protected $signature = 'license:check 
-                            {--server : Force server validation}
-                            {--quiet : Suppress output}';
+                            {--server : Force server validation}';
 
     /**
      * The console command description.
