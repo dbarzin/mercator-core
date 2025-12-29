@@ -1,5 +1,5 @@
 <?php
-
+// OLD CODE
 namespace Mercator\Core;
 
 use Illuminate\Support\ServiceProvider;

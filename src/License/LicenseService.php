@@ -1,5 +1,7 @@
 <?php
 
+// OLD CODE
+
 namespace Mercator\Core\License;
 
 use Carbon\Carbon;

@@ -18,6 +18,8 @@ class Actor extends Model
 {
     use Auditable, HasFactory, SoftDeletes;
 
+    public static string $prefix = 'ACTOR_';
+
     public static array $searchable = [
         'name',
         'nature',
