@@ -41,11 +41,11 @@ class LicenseCheckCommand extends Command
             }
 
             // Vérifier la licence
-            $isValid = $licenseService->hasValidLicense();
+            $isValid = $licenseService->hasValidLicense(true);
 
             if (!$quiet) {
                 if ($isValid) {
-                    $this->info('✓ License is valid');
+                    $this->info('✓ License signature is valid');
 
                     // Afficher les détails
                     $info = $licenseService->getLicenseInfo();
@@ -66,16 +66,26 @@ class LicenseCheckCommand extends Command
                         ]
                     );
 
+                    $this->newLine();
+
                     // Avertissements
                     if ($info['status'] === 'expiring_soon') {
-                        $this->newLine();
                         $this->warn("⚠ License will expire in {$info['days_until_expiration']} days!");
                         $this->warn('Please contact support@mercator-enterprise.com to renew.');
                     } elseif ($info['status'] === 'expired') {
-                        $this->newLine();
                         $this->error("✗ License expired {$info['days_until_expiration']} days ago!");
                         $this->error('Please contact support@mercator-enterprise.com immediately.');
                     }
+
+                    $this->newLine();
+
+                    // Validation avec le serveur de licences
+                    if ($licenseService->validateWithServer()) {
+                        $this->info('✓ License has been validated with the Licence server.');
+                    } else {
+                        $this->error("✗ License could not be verified with the Licence server !");
+                    }
+
                 } else {
                     $this->error('✗ No valid license found');
                     $this->newLine();

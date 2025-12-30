@@ -1,11 +1,12 @@
 <?php
-// NEW CODE
+
 namespace Mercator\Core\Services;
 
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Mercator\Core\Models\User;
 
 /**
  * Service de vérification des licences Mercator Enterprise
@@ -56,11 +57,21 @@ class LicenseService
      *
      * @return bool
      */
-    public function hasValidLicense(): bool
+    public function hasValidLicense($force = false): bool
     {
+        $cacheKey = 'mercator_license_validated';
+        if (!$force && Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
         try {
             $license = $this->getLicense();
-            return $this->isLicenseValid($license);
+            $res = $this->isLicenseValid($license);
+
+            Cache::put($cacheKey, $res, $this->cacheDuration);
+
+            return $res;
+
         } catch (Exception $e) {
             Log::warning('License check failed: ' . $e->getMessage());
             return false;
@@ -125,11 +136,14 @@ class LicenseService
             return false;
         }
 
-        // 3. Valider auprès du serveur (si disponible)
+        /*
+        // 3. Validation locale réussie = accès garanti
+        // La validation serveur est optionnelle et non-bloquante
         if ($this->licenseServer && !$this->shouldSkipServerValidation()) {
-            return $this->validateWithServer($license);
+            // Lance la validation serveur en arrière-plan (non-bloquante)
+            $this->validateWithServerAsync($license);
         }
-
+        */
         return true;
     }
 
@@ -210,18 +224,13 @@ class LicenseService
     /**
      * Valider la licence auprès du serveur Mercator-License
      *
-     * @param array $license
      * @return bool
      */
-    protected function validateWithServer(array $license): bool
+    public function validateWithServer(): bool
     {
-        // Vérifier si déjà validé récemment
-        $cacheKey = 'mercator_license_server_validated';
-        if (Cache::has($cacheKey)) {
-            return Cache::get($cacheKey);
-        }
-
         try {
+            $license = $this->getLicense();
+
             $response = Http::timeout(10)
                 ->post("{$this->licenseServer}/api/v1/licenses/validate", [
                     'license_key' => $license['license_key'],
@@ -231,9 +240,6 @@ class LicenseService
             if ($response->successful()) {
                 $result = $response->json();
                 $isValid = $result['valid'] ?? false;
-
-                // Mettre en cache le résultat
-                Cache::put($cacheKey, $isValid, $this->cacheDuration);
 
                 if (!$isValid && isset($result['error'])) {
                     Log::error('License validation failed on server', [
@@ -248,14 +254,12 @@ class LicenseService
                 'status' => $response->status(),
             ]);
 
-            // En cas d'erreur serveur, accepter la licence si valide localement
-            return true;
+            return false;
 
         } catch (Exception $e) {
             Log::warning('License server validation failed: ' . $e->getMessage());
 
-            // En cas d'erreur réseau, accepter la licence si valide localement
-            return true;
+            return false;
         }
     }
 
@@ -291,6 +295,8 @@ class LicenseService
      */
     public function hasModuleAccess(string $module): bool
     {
+        \Log::debug('hasModuleAccess ' . $module);
+
         return $this->hasModule($module);
     }
 
@@ -476,7 +482,7 @@ class LicenseService
             'php_version' => PHP_VERSION,
             'laravel_version' => app()->version(),
             'environment' => config('app.env'),
-            'users_count' => \App\Models\User::count(),
+            'users_count' => User::query()->count(),
         ];
     }
 

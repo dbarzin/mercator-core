@@ -8,12 +8,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | L'URL du serveur de licences Mercator-License pour la validation en ligne.
-    | Laisser null pour désactiver la validation serveur.
     |
     */
 
-    // 'server_url' => env('MERCATOR_LICENSE_SERVER', 'https://license.sourcentis.com'),
-    'server_url' => env('MERCATOR_LICENSE_SERVER', 'http://127.0.0.1:8000'),
+    'server_url' => env('MERCATOR_LICENSE_SERVER', 'https://license.sourcentis.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -21,7 +19,6 @@ return [
     |--------------------------------------------------------------------------
     |
     | La clé publique RSA pour vérifier les signatures de licence.
-    | Cette clé doit correspondre à la clé privée utilisée par Mercator-License.
     |
     */
 
@@ -84,39 +81,5 @@ EOD,
     */
 
     'cache_duration' => env('MERCATOR_LICENSE_CACHE_DURATION', 86400),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Modules Enterprise
-    |--------------------------------------------------------------------------
-    |
-    | Liste des modules Enterprise disponibles.
-    |
-    */
-
-    'enterprise_modules' => [
-        'bpmn' => [
-            'name' => 'BPMN Editor',
-            'description' => 'Advanced BPMN 2.0 process modeling',
-            'routes' => [
-                'bpmn.*',
-                'api.bpmn.*',
-            ],
-        ],
-        'analytics' => [
-            'name' => 'Advanced Analytics',
-            'description' => 'Business intelligence and reporting',
-            'routes' => [
-                'analytics.*',
-            ],
-        ],
-        'api' => [
-            'name' => 'Extended API',
-            'description' => 'Full REST API access',
-            'routes' => [
-                'api.*',
-            ],
-        ],
-    ],
 
 ];

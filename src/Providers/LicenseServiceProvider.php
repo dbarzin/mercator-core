@@ -2,9 +2,11 @@
 // New Code
 namespace Mercator\Core\Providers;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
+use Mercator\Core\Menus\MenuRegistry;
 use Mercator\Core\Services\LicenseService;
 use Mercator\Core\Modules\ModuleRegistry;
 use Mercator\Core\Modules\ModuleDiscovery;
@@ -17,6 +19,9 @@ class LicenseServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Charger la config du package et la merger dans config('mercator')
+        $this->mergeConfig();
+
         // Enregistrer le service de licence en singleton
         $this->app->singleton(LicenseService::class, function ($app) {
             return new LicenseService();
@@ -37,6 +42,13 @@ class LicenseServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/license.php',
             'license'
         );
+
+        // MenuRegistry : registre central des menus Mercator
+        $this->app->singleton(MenuRegistry::class, function ($app) {
+            return new MenuRegistry();
+        });
+        $this->app->alias(MenuRegistry::class, 'mercator.menus');
+
     }
 
     /**
@@ -133,8 +145,22 @@ class LicenseServiceProvider extends ServiceProvider
         });
     }
 
+
+    /**
+     * Merge la config du package dans config('mercator').
+     */
+    protected function mergeConfig(): void
+    {
+        $configPath = __DIR__ . '/../config/mercator.php';
+
+        if (file_exists($configPath)) {
+            $this->mergeConfigFrom($configPath, 'mercator');
+        }
+    }
+
     /**
      * Enregistrer les Gates pour les permissions basées sur la licence
+     * @throws BindingResolutionException
      */
     protected function registerGates(): void
     {

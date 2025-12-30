@@ -12,7 +12,8 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.46",
-        "laravel/passport": "^12.3"
+        "laravel/passport": "^12.3",
+      "ext-openssl": "*"
     },
     "extra": {
         "laravel": {
