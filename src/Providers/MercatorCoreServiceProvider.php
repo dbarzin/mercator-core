@@ -1,6 +1,6 @@
 <?php
 // OLD CODE
-namespace Mercator\Core;
+namespace Mercator\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Mercator\Core\License\LicenseService;
