@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Mercator\Core\Menus\MenuRegistry;
+use Mercator\Core\Permissions\PermissionRegistry;
 use Mercator\Core\Services\LicenseService;
 use Mercator\Core\Modules\ModuleRegistry;
 use Mercator\Core\Modules\ModuleDiscovery;
@@ -36,17 +37,21 @@ class MercatorServiceProvider extends ServiceProvider
             return new ModuleRegistry($app->make(ModuleDiscovery::class));
         });
 
+        // Enregistrer le registry des menus en singleton
+        $this->app->singleton(MenuRegistry::class, function ($app) {
+            return new MenuRegistry();
+        });
+
+        // Enregistrer le registry de permissions comme singleton
+        $this->app->singleton(PermissionRegistry::class, function ($app) {
+            return new PermissionRegistry();
+        });
+
         // Merger la configuration
         $this->mergeConfigFrom(
             __DIR__ . '/../../config/license.php',
             'license'
         );
-
-        // MenuRegistry : registre central des menus Mercator
-        $this->app->singleton(MenuRegistry::class, function ($app) {
-            return new MenuRegistry();
-        });
-        $this->app->alias(MenuRegistry::class, 'mercator.menus');
 
     }
 
