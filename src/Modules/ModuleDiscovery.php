@@ -65,6 +65,8 @@ class ModuleDiscovery
      */
     public function discover(): array
     {
+        \Log::debug('Discovering modules');
+
         // 1. Vérifier le cache mémoire
         if ($this->cache !== null) {
             return $this->cache;
@@ -72,7 +74,7 @@ class ModuleDiscovery
 
         // 2. Vérifier le cache Laravel
         $cached = Cache::get(self::CACHE_KEY);
-        if ($cached !== null && is_array($cached)) {
+        if (is_array($cached)) {
             return $this->cache = $cached;
         }
 
@@ -93,6 +95,8 @@ class ModuleDiscovery
      */
     protected function discoverFromComposer(): array
     {
+        \Log::debug('Discovering modules from Composer installed.json');
+
         if (!file_exists($this->installedPath)) {
             Log::warning("Composer installed.json not found at: {$this->installedPath}");
             return [];

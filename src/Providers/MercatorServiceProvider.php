@@ -10,9 +10,8 @@ use Mercator\Core\Menus\MenuRegistry;
 use Mercator\Core\Services\LicenseService;
 use Mercator\Core\Modules\ModuleRegistry;
 use Mercator\Core\Modules\ModuleDiscovery;
-use Mercator\Core\Http\Middleware\CheckLicense;
 
-class LicenseServiceProvider extends ServiceProvider
+class MercatorServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -53,9 +52,12 @@ class LicenseServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap services.
+     * @throws BindingResolutionException
      */
     public function boot(): void
     {
+        \Log::debug('Booting Mercator');
+
         // Publier la configuration
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -74,7 +76,7 @@ class LicenseServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
         // Enregistrer le middleware
-        $this->app['router']->aliasMiddleware('license', CheckLicense::class);
+        // $this->app['router']->aliasMiddleware('license', CheckLicense::class);
 
         // Enregistrer les directives Blade
         $this->registerBladeDirectives();
@@ -88,7 +90,6 @@ class LicenseServiceProvider extends ServiceProvider
                 \Mercator\Core\Console\Commands\LicenseInstallCommand::class,
                 \Mercator\Core\Console\Commands\LicenseCheckCommand::class,
                 \Mercator\Core\Console\Commands\LicenseInfoCommand::class,
-                \Mercator\Core\Console\Commands\ModuleDiscoverCommand::class,
             ]);
         }
 
@@ -202,6 +203,7 @@ class LicenseServiceProvider extends ServiceProvider
      */
     protected function autoDiscoverModules(): void
     {
+        \Log::debug('Auto-discovering modules');
         try {
             $moduleRegistry = $this->app->make(ModuleRegistry::class);
 
