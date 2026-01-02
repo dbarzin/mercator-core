@@ -71,10 +71,10 @@ class LicenseCheckCommand extends Command
                     // Avertissements
                     if ($info['status'] === 'expiring_soon') {
                         $this->warn("⚠ License will expire in {$info['days_until_expiration']} days!");
-                        $this->warn('Please contact support@mercator-enterprise.com to renew.');
+                        $this->warn('Please contact support@sourcentis.com to renew.');
                     } elseif ($info['status'] === 'expired') {
                         $this->error("✗ License expired {$info['days_until_expiration']} days ago!");
-                        $this->error('Please contact support@mercator-enterprise.com immediately.');
+                        $this->error('Please contact support@sourcentis.com immediately.');
                     }
 
                     $this->newLine();
