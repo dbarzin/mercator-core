@@ -1,5 +1,5 @@
 <?php
-// New Code
+
 namespace Mercator\Core\Providers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -61,8 +61,6 @@ class MercatorServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \Log::debug('Booting Mercator');
-
         // Publier la configuration
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -208,7 +206,6 @@ class MercatorServiceProvider extends ServiceProvider
      */
     protected function autoDiscoverModules(): void
     {
-        \Log::debug('Auto-discovering modules');
         try {
             $moduleRegistry = $this->app->make(ModuleRegistry::class);
 

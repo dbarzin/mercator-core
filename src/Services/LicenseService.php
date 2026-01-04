@@ -295,8 +295,6 @@ class LicenseService
      */
     public function hasModuleAccess(string $module): bool
     {
-        \Log::debug('hasModuleAccess ' . $module);
-
         return $this->hasModule($module);
     }
 
