@@ -6,6 +6,15 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
+use Mercator\Core\Console\Commands\LicenseCheckCommand;
+use Mercator\Core\Console\Commands\LicenseInfoCommand;
+use Mercator\Core\Console\Commands\LicenseInstallCommand;
+use Mercator\Core\Console\Commands\ModuleDisableCommand;
+use Mercator\Core\Console\Commands\ModuleDiscoverCommand;
+use Mercator\Core\Console\Commands\ModuleEnableCommand;
+use Mercator\Core\Console\Commands\ModuleInstallCommand;
+use Mercator\Core\Console\Commands\ModuleListCommand;
+use Mercator\Core\Console\Commands\ModuleStatusCommand;
 use Mercator\Core\Menus\MenuRegistry;
 use Mercator\Core\Permissions\PermissionRegistry;
 use Mercator\Core\Services\LicenseService;
@@ -61,40 +70,43 @@ class MercatorServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Publier la configuration
         if ($this->app->runningInConsole()) {
+            // Publier la configuration
             $this->publishes([
                 __DIR__ . '/../../config/license.php' => config_path('license.php'),
             ], 'mercator-license-config');
-        }
 
-        // Publier les migrations
-        if ($this->app->runningInConsole()) {
+             // Publier les migrations
             $this->publishes([
                 __DIR__ . '/../../database/migrations' => database_path('migrations'),
             ], 'mercator-license-migrations');
+
+            // Enregistrer les commandes
+            $this->commands([
+                // Licence
+                LicenseInstallCommand::class,
+                LicenseCheckCommand::class,
+                LicenseInfoCommand::class,
+
+                // Modules
+                ModuleListCommand::class,
+                ModuleEnableCommand::class,
+                ModuleDisableCommand::class,
+                ModuleInstallCommand::class,
+                ModuleDiscoverCommand::class,
+                ModuleStatusCommand::class,
+            ]);
+
+            // Charger les migrations
+            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+
         }
-
-        // Charger les migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-
-        // Enregistrer le middleware
-        // $this->app['router']->aliasMiddleware('license', CheckLicense::class);
 
         // Enregistrer les directives Blade
         $this->registerBladeDirectives();
 
         // Enregistrer les Gates
         $this->registerGates();
-
-        // Enregistrer les commandes
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                \Mercator\Core\Console\Commands\LicenseInstallCommand::class,
-                \Mercator\Core\Console\Commands\LicenseCheckCommand::class,
-                \Mercator\Core\Console\Commands\LicenseInfoCommand::class,
-            ]);
-        }
 
         // Auto-découvrir les modules au boot (si la base est prête)
         $this->autoDiscoverModules();
