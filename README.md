@@ -1,66 +1,46 @@
 # Mercator Core
 
-The Mercator Core project contains Mercator core services 
-(modules, licensing, menus, domain models)
+Core services for Mercator: module management, licensing, menus, and domain models.
 
-# Commandes
+## Commands
 
-## Lister tous les modules
+### List modules
+
+```bash
+# List all available modules
 php artisan mercator:module:list
 
-## Lister seulement les modules installés
+# List only installed modules
 php artisan mercator:module:list --installed
 
-## Lister seulement les modules activés
+# List only enabled modules
 php artisan mercator:module:list --enabled
+```
 
-## Afficher le statut d'un module
-php artisan mercator:module:status bpmn
+### Manage modules
 
-## Découvrir et installer automatiquement les nouveaux modules
+```bash
+# Show module status
+php artisan mercator:module:status module_name
+
+# Discover and install new modules automatically
 php artisan mercator:module:discover
 
-## Installer un module spécifique
-php artisan mercator:module:install bpmn
+# Install a specific module
+php artisan mercator:module:install module_name
 
-## Activer un module
-php artisan mercator:module:enable bpmn
+# Enable a module
+php artisan mercator:module:enable module_name
 
-## Désactiver un module
-php artisan mercator:module:disable bpmn
+# Disable a module
+php artisan mercator:module:disable module_name
+```
 
+## Requirements
 
-# Notes de version
+- PHP >= 8.3
+- Laravel >= 10.0
 
-## Release
+## License
 
-cd /path/vers/mercator-core
-git checkout main
-git pull
-
-Create a new tag
-
-    git tag
-    git tag v1.0.1
-    git push origin v1.0.1
-
-
-## Update Composer
-
-Force la mise à jour :
-
-    composer clear-cache
-    composer update sourcentis/mercator-core
-
-
-Vérifie que Composer prend bien la bonne version :
-
-    composer show sourcentis/mercator-core
-
-# version : v1.0.1
-
-php artisan optimize:clear
-php artisan package:discover
-
-
-
+AGPL-3.0
