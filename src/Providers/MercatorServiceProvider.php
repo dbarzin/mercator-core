@@ -99,22 +99,25 @@ class MercatorServiceProvider extends ServiceProvider
 
             // Charger les migrations
             $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-
         }
+        else {
+            // Running in Web
 
-        // Enregistrer les directives Blade
-        $this->registerBladeDirectives();
+            // Enregistrer les directives Blade
+            $this->registerBladeDirectives();
 
-        // Enregistrer les Gates
-        $this->registerGates();
+            // Enregistrer les Gates
+            $this->registerGates();
+        }
 
         // Auto-découvrir les modules au boot (si la base est prête)
-        $this->autoDiscoverModules();
+        // No this is done manually once at install time
+        // $this->autoDiscoverModules();
 
         // Vérifier la licence au démarrage (en production)
-        if ($this->app->environment('production')) {
-            $this->checkLicenseOnBoot();
-        }
+        // if ($this->app->environment('production')) {
+        //      $this->checkLicenseOnBoot();
+        //}
     }
 
     /**
