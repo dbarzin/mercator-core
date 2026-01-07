@@ -4,45 +4,8 @@ Ce guide décrit la procédure d'installation et de configuration de Mercator Co
 
 ## Prérequis
 
-- PHP >= 8.3
-- Laravel >= 10.0
 - Composer
 - Une licence Mercator Enterprise valide
-
-## Installation
-
-### 1. Installation du package
-
-Installez le package via Composer :
-
-```bash
-composer require sourcentis/mercator-core
-```
-
-### 2. Publication des fichiers de configuration
-
-Publiez les fichiers de configuration du package :
-
-```bash
-php artisan vendor:publish --provider="Mercator\Core\MercatorCoreServiceProvider"
-```
-
-### 3. Configuration de l'application
-
-Configurez les paramètres dans le fichier `config/license.php` :
-
-```php
-return [
-    'server_url' => env('LICENSE_SERVER_URL', 'https://license.sourcentis.com'),
-    // autres paramètres...
-];
-```
-
-Ajoutez l'URL du serveur de licences dans votre fichier `.env` :
-
-```env
-LICENSE_SERVER_URL=https://license.sourcentis.com
-```
 
 ## Installation de la licence
 
