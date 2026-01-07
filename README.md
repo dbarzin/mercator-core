@@ -4,7 +4,27 @@ Core services for Mercator: module management, licensing, menus, and domain mode
 
 ## Commands
 
-### List modules
+### License Management
+
+```bash
+# Install a license
+php artisan license:install --key=YOUR-LICENSE-KEY
+php artisan license:install --file=/path/to/license.json
+php artisan license:install --key=YOUR-KEY --validate
+
+# Check license validity
+php artisan license:check
+php artisan license:check --server
+
+# Display license information
+php artisan license:info
+php artisan license:info --json
+php artisan license:info --modules
+```
+
+### Module Management
+
+#### List modules
 
 ```bash
 # List all available modules
@@ -17,7 +37,7 @@ php artisan mercator:module:list --installed
 php artisan mercator:module:list --enabled
 ```
 
-### Manage modules
+#### Manage modules
 
 ```bash
 # Show module status
