@@ -209,6 +209,24 @@ class LicenseInstallCommand extends Command
 
         $this->info('✓ License file saved');
 
+        // Configurer l'authentification Composer
+        $this->info('Configuring Composer authentication...');
+        $licenseKey = $licenseData['license_key'];
+        $composerCommand = sprintf(
+            'composer config --auth http-basic.composer.sourcentis.com token %s',
+            escapeshellarg($licenseKey)
+        );
+
+        exec($composerCommand . ' 2>&1', $output, $returnCode);
+
+        if ($returnCode === 0) {
+            $this->info('✓ Composer authentication configured');
+        } else {
+            $this->warn('⚠ Failed to configure Composer authentication');
+            $this->warn('  You may need to run manually:');
+            $this->warn('  composer config --auth http-basic.composer.sourcentis.com token "' . $licenseKey . '"');
+        }
+
         // Invalider le cache
         $this->licenseService->clearCache();
 
