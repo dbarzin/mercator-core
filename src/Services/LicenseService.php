@@ -94,17 +94,20 @@ class LicenseService
 
         // Lire le fichier de licence
         if (!file_exists($this->licensePath)) {
-            throw new Exception('License file not found');
+            return null;
+            // throw new Exception('License file not found');
         }
 
         $content = file_get_contents($this->licensePath);
         if ($content === false) {
-            throw new Exception('Unable to read license file');
+            return null;
+            // throw new Exception('Unable to read license file');
         }
 
         $license = json_decode($content, true);
         if ($license === null) {
-            throw new Exception('Invalid license file format');
+            return null;
+            // throw new Exception('Invalid license file format');
         }
 
         // Valider la structure
