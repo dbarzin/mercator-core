@@ -73,7 +73,7 @@ class LicenseService
             return $res;
 
         } catch (Exception $e) {
-            Log::warning('License check failed: ' . $e->getMessage());
+            // Log::warning('License check failed: ' . $e->getMessage());
             return false;
         }
     }
