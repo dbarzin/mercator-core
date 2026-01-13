@@ -19,6 +19,8 @@ class MacroProcessus extends Model
 
     public $table = 'macro_processuses';
 
+    public static string $prefix = 'MACROPROCESS_';
+
     public static array $searchable = [
         'name',
         'description',
