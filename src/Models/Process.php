@@ -60,6 +60,16 @@ class Process extends Model implements HasIcon
         return ProcessFactory::new();
     }
 
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
+
     /*
      * Implement HasIcon
      */

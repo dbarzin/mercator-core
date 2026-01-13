@@ -46,6 +46,16 @@ class Task extends Model
         return TaskFactory::new();
     }
 
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
+
     /** @return BelongsToMany<Operation, $this> */
     public function operations(): BelongsToMany
     {

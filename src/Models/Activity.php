@@ -56,6 +56,16 @@ class Activity extends Model
         'deleted_at',
     ];
 
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
+
     protected static function newFactory(): Factory
     {
         return ActivityFactory::new();

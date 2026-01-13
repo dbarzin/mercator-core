@@ -52,6 +52,16 @@ class MacroProcessus extends Model
         return MacroProcessusFactory::new();
     }
 
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
+
     /** @return HasMany<Process, $this> */
     public function processes(): HasMany
     {
