@@ -48,6 +48,16 @@ class Operation extends Model
         return OperationFactory::new();
     }
 
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
+
     /** @return BelongsTo<Process, $this> */
     public function process(): BelongsTo
     {
