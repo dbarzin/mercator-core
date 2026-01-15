@@ -2,7 +2,9 @@
 
 namespace Mercator\Core\Models;
 
+use http\QueryString;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 use Mercator\Core\Factories\ActivityFactory;
 use Mercator\Core\Factories\UserFactory;
 use Mercator\Core\Traits\Auditable;
@@ -94,4 +96,15 @@ class Activity extends Model
     {
         return $this->hasMany(ActivityImpact::class)->orderBy('impact_type');
     }
+
+    public function graphs(): Collection
+    {
+        return once(fn() => Graph::query()
+            ->select('id','name')
+            ->where('class', '=', '2')
+            ->whereLike('content', '%"#'.$this->getUID().'"%')
+            ->get()
+        );
+    }
+
 }

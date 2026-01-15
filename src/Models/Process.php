@@ -2,6 +2,7 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Support\Collection;
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Mercator\Core\Factories\ActivityImpactFactory;
@@ -130,4 +131,15 @@ class Process extends Model implements HasIcon
     {
         return $this->belongsToMany(SecurityControl::class, 'security_control_process')->orderBy('name');
     }
+
+    public function graphs(): Collection
+    {
+        return once(fn() => Graph::query()
+            ->select('id','name')
+            ->where('class', '=', '2')
+            ->whereLike('content', '%"#'.$this->getUID().'"%')
+            ->get()
+        );
+    }
+
 }

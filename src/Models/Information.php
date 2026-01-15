@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\InformationFactory;
 use Mercator\Core\Traits\Auditable;
@@ -79,4 +80,15 @@ class Information extends Model
     {
         return $this->belongsToMany(Process::class)->orderBy('name');
     }
+
+    public function graphs(): Collection
+    {
+        return once(fn() => Graph::query()
+            ->select('id','name')
+            ->where('class', '=', '2')
+            ->whereLike('content', '%"#'.$this->getUID().'"%')
+            ->get()
+        );
+    }
+
 }
