@@ -267,4 +267,28 @@ class Subnetwork extends Model
 
         return false;
     }
+
+    /**
+     * Get the mask length (prefix length) from the CIDR address.
+     *
+     * @return int The mask length (e.g., 24 for "192.168.1.0/24"), or 0 if invalid/missing.
+     */
+    public function getMaskLength(): int
+    {
+        // No address defined
+        if ($this->address === null) {
+            return 0;
+        }
+
+        // Split CIDR notation
+        $parts = explode('/', $this->address);
+
+        // Invalid format (no prefix length)
+        if (count($parts) < 2) {
+            return 0;
+        }
+
+        // Return the mask length as integer
+        return (int) $parts[1];
+    }
 }
