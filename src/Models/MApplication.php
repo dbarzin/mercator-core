@@ -178,6 +178,12 @@ class MApplication extends Model implements HasIcon
         return $this->belongsToMany(LogicalServer::class)->orderBy('name');
     }
 
+    /** @return BelongsToMany<LogicalServer, $this> */
+    public function containers(): BelongsToMany
+    {
+        return $this->belongsToMany(Container::class)->orderBy('name');
+    }
+
     /** @return BelongsToMany<SecurityDevice, $this> */
     public function securityDevices(): BelongsToMany
     {
