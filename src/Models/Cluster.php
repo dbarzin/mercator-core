@@ -38,8 +38,8 @@ class Cluster extends Model implements HasIcon
         'name',
         'type',
         'attributes',
-        'description',
         'icon_id',
+        'description',
         'address_ip',
     ];
 

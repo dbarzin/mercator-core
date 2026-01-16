@@ -3,7 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Contracts\HasIcon;
 use Mercator\Core\Factories\DatabaseFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Database
  */
-class Database extends Model
+class Database extends Model  implements HasIcon
 {
     use Auditable, HasFactory, SoftDeletes;
 
@@ -37,10 +37,11 @@ class Database extends Model
 
     protected $fillable = [
         'name',
+        'type',
+        'icon_id',
         'description',
         'entity_resp_id',
         'responsible',
-        'type',
         'security_need_c',
         'security_need_i',
         'security_need_a',
@@ -55,6 +56,19 @@ class Database extends Model
     protected static function newFactory(): Factory
     {
         return DatabaseFactory::new();
+    }
+
+    /*
+     * Implement HasIcon
+     */
+    public function setIconId(?int $id): void
+    {
+        $this->icon_id = $id;
+    }
+
+    public function getIconId(): ?int
+    {
+        return $this->icon_id;
     }
 
     /** @return HasMany<Flux, $this> */
