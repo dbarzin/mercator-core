@@ -22,20 +22,7 @@ class Relation extends Model
 
     public $table = 'relations';
 
-    public static array $searchable = [
-        'name',
-        'type',
-        'description',
-        'order_number',
-        'reference',
-        'comments',
-    ];
-
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    public static string $prefix = 'RELATION_';
 
     protected $fillable = [
         'name',
@@ -57,6 +44,31 @@ class Relation extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static array $searchable = [
+        'name',
+        'type',
+        'description',
+        'order_number',
+        'reference',
+        'comments',
+    ];
+
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

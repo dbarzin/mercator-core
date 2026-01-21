@@ -3,6 +3,8 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasIcon;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\ForestAdFactory;
 use Mercator\Core\Traits\Auditable;
@@ -15,11 +17,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\ForestAd
  */
-class ForestAd extends Model
+class ForestAd extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'forest_ads';
+
+    public static string $prefix = 'FOREST_';
 
     public static array $searchable = [
         'name',
@@ -40,6 +44,16 @@ class ForestAd extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

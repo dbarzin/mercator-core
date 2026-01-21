@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\ApplicationBlockFactory;
 use Mercator\Core\Factories\ApplicationModuleFactory;
@@ -16,11 +17,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\ApplicationModule
  */
-class ApplicationModule extends Model
+class ApplicationModule extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'application_modules';
+
+    public static string $prefix = 'MOD_';
 
     public static array $searchable = [
         'name',
@@ -40,6 +43,16 @@ class ApplicationModule extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

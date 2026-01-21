@@ -3,7 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\GatewayFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,22 +14,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Gateway
  */
-class Gateway extends Model
+class Gateway extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'gateways';
 
+    public static string $prefix = 'GATEWAY_';
+
     public static array $searchable = [
         'name',
         'description',
         'ip',
-    ];
-
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
 
     protected $fillable = [
@@ -41,6 +37,22 @@ class Gateway extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\WorkstationFactory;
 use Mercator\Core\Traits\Auditable;
@@ -18,26 +19,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @mixin \Eloquent
  */
-class Workstation extends Model implements HasIcon
+class Workstation extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'workstations';
 
-    public static array $searchable = [
-        'name',
-        'type',
-        'description',
-        'serial_number',
-        'manufacturer',
-        'model',
-    ];
+    public static string $prefix = 'WORK_';
 
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
 
     protected $fillable = [
         'name',
@@ -92,6 +81,32 @@ class Workstation extends Model implements HasIcon
         'updated_at',
         'deleted_at',
     ];
+
+    public static array $searchable = [
+        'name',
+        'type',
+        'description',
+        'serial_number',
+        'manufacturer',
+        'model',
+        'address_ip'
+    ];
+
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

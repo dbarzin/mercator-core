@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\MacroProcessusFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,26 +14,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\MacroProcessus
  */
-class MacroProcessus extends Model
+class MacroProcessus extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'macro_processuses';
 
     public static string $prefix = 'MACROPROCESS_';
-
-    public static array $searchable = [
-        'name',
-        'description',
-        'io_elements',
-        'owner',
-    ];
-
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
 
     protected $fillable = [
         'name',
@@ -44,6 +32,19 @@ class MacroProcessus extends Model
         'security_need_t',
         'security_need_auth',
         'owner',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public static array $searchable = [
+        'name',
+        'description',
+        'io_elements',
+        'owner',
+    ];
+
+    protected array $dates = [
         'created_at',
         'updated_at',
         'deleted_at',

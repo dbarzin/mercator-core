@@ -16,9 +16,6 @@ class ActivityImpact extends Model
 {
     use HasFactory;
 
-    public static array $searchable = [
-    ];
-
     public $table = 'activity_impact';
 
     protected array $dates = [
@@ -29,6 +26,10 @@ class ActivityImpact extends Model
 
     protected $fillable = [
     ];
+
+    public static array $searchable = [
+    ];
+
 
     protected static function newFactory(): Factory
     {

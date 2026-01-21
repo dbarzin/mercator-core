@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\DomaineAdFactory;
 use Mercator\Core\Traits\Auditable;
@@ -15,11 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\DomaineAd
  */
-class DomaineAd extends Model
+class DomaineAd extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'domaine_ads';
+
+    public static string $prefix = 'ENTITY_';
 
     public static array $searchable = [
         'name',
@@ -43,6 +46,16 @@ class DomaineAd extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

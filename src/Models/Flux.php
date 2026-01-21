@@ -3,7 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Factories\ActivityImpactFactory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\FluxFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,11 +14,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Flux Applicatif
  */
-class Flux extends Model
+class Flux extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'fluxes';
+
+    public static string $prefix = 'FLOW_';
 
     public static array $searchable = [
         'name',
@@ -48,46 +50,93 @@ class Flux extends Model
         'bidirectional',
     ];
 
+    /**
+     * Mapping des champs ID vers les noms de relations pour les sources
+     */
+    private const SOURCE_RELATIONS = [
+        'application_source_id' => 'application_source',
+        'service_source_id' => 'service_source',
+        'module_source_id' => 'module_source',
+        'database_source_id' => 'database_source',
+    ];
+
+    /**
+     * Mapping des champs ID vers les noms de relations pour les destinations
+     */
+    private const DEST_RELATIONS = [
+        'application_dest_id' => 'application_dest',
+        'service_dest_id' => 'service_dest',
+        'module_dest_id' => 'module_dest',
+        'database_dest_id' => 'database_dest',
+    ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
+
     protected static function newFactory(): Factory
     {
         return FluxFactory::new();
     }
 
+    /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ UIDs ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
+
+    /**
+     * Retourne l'UID de la source (ex: "APP_42", "SRV_15")
+     * Utilise le préfixe statique défini dans chaque modèle
+     */
     public function sourceId(): ?string
     {
-        if ($this->application_source_id !== null) {
-            return 'APP_'.$this->application_source_id;
-        }
-        if ($this->service_source_id !== null) {
-            return 'SRV_'.$this->service_source_id;
-        }
-        if ($this->module_source_id !== null) {
-            return 'MOD_'.$this->module_source_id;
-        }
-        if ($this->database_source_id !== null) {
-            return 'DB_'.$this->database_source_id;
-        }
-
-        return null;
+        return $this->getEntityUID(self::SOURCE_RELATIONS);
     }
 
+    /**
+     * Retourne l'UID de la destination (ex: "MOD_8", "DB_23")
+     * Utilise le préfixe statique défini dans chaque modèle
+     */
     public function destId(): ?string
     {
-        if ($this->application_dest_id !== null) {
-            return 'APP_'.$this->application_dest_id;
-        }
-        if ($this->service_dest_id !== null) {
-            return 'SRV_'.$this->service_dest_id;
-        }
-        if ($this->module_dest_id !== null) {
-            return 'MOD_'.$this->module_dest_id;
-        }
-        if ($this->database_dest_id !== null) {
-            return 'DB_'.$this->database_dest_id;
+        return $this->getEntityUID(self::DEST_RELATIONS);
+    }
+
+    /**
+     * Récupère l'UID d'une entité sans charger la relation complète
+     * Utilise la propriété statique $prefix de chaque modèle
+     *
+     * @param array<string, string> $relations Mapping field => relationName
+     * @return string|null L'UID construit (PREFIX_ID) ou null si aucune relation n'est définie
+     */
+    private function getEntityUID(array $relations): ?string
+    {
+        foreach ($relations as $field => $relationName) {
+            if ($this->$field !== null) {
+                // Récupère la classe du modèle via la relation
+                $relation = $this->$relationName();
+                $modelClass = get_class($relation->getRelated());
+
+                // Utilise le préfixe statique de la classe cible
+                // Ex: MApplication::$prefix = "APP_"
+                if (property_exists($modelClass, 'prefix')) {
+                    return $modelClass::$prefix . $this->$field;
+                }
+
+                // Fallback si le modèle n'a pas de préfixe
+                throw new \LogicException(
+                    sprintf('Model %s must have a static $prefix property', $modelClass)
+                );
+            }
         }
 
         return null;
     }
+
+    /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ Relations ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
 
     /** @return BelongsTo<MApplication, $this> */
     public function application_source(): BelongsTo

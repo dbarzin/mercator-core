@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\MApplicationFactory;
 use Mercator\Core\Traits\Auditable;
@@ -14,9 +15,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MApplication extends Model implements HasIcon
+class MApplication extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
+
+    public $table = 'm_applications';
+
+    public static string $prefix = 'APP_';
 
     public static array $searchable = [
         'name',
@@ -27,8 +32,6 @@ class MApplication extends Model implements HasIcon
         'functional_referent',
         'attributes',
     ];
-
-    public $table = 'm_applications';
 
     protected array $dates = [
         'created_at',
@@ -68,6 +71,16 @@ class MApplication extends Model implements HasIcon
         'update_date',
         'next_update',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

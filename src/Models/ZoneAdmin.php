@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\ZoneAdminFactory;
 use Mercator\Core\Traits\Auditable;
@@ -11,11 +12,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ZoneAdmin extends Model
+class ZoneAdmin extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'zone_admins';
+
+    public static string $prefix = 'ZONE_';
+
+    protected $fillable = [
+        'name',
+        'description',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     public static array $searchable = [
         'name',
@@ -28,13 +39,15 @@ class ZoneAdmin extends Model
         'deleted_at',
     ];
 
-    protected $fillable = [
-        'name',
-        'description',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

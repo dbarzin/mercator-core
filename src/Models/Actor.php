@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\ActorFactory;
 use Mercator\Core\Traits\Auditable;
@@ -15,24 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Actor
  */
-class Actor extends Model
+class Actor extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
-    public static string $prefix = 'ACTOR_';
-
-    public static array $searchable = [
-        'name',
-        'nature',
-    ];
-
     public $table = 'actors';
 
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    public static string $prefix = 'ACTOR_';
 
     protected $fillable = [
         'name',
@@ -44,10 +34,18 @@ class Actor extends Model
         'deleted_at',
     ];
 
-    protected static function newFactory(): Factory
-    {
-        return ActorFactory::new();
-    }
+    public static array $searchable = [
+        'name',
+        'nature',
+    ];
+
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+
 
     public function getPrefix(): string
     {
@@ -57,6 +55,11 @@ class Actor extends Model
     public function getUID(): string
     {
         return $this->getPrefix() . $this->id;
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return ActorFactory::new();
     }
 
     /** @return BelongsToMany<Operation, $this>

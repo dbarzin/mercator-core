@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\BuildingFactory;
 use Mercator\Core\Traits\Auditable;
@@ -17,11 +18,13 @@ use Illuminate\Support\Collection;
 /**
  * App\Building
  */
-class Building extends Model implements HasIcon
+class Building extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'buildings';
+
+    public static string $prefix = 'BUILD_';
 
     public static array $searchable = [
         'name',
@@ -43,6 +46,16 @@ class Building extends Model implements HasIcon
         'building_id',
         'icon_id',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

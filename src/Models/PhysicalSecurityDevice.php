@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\PhysicalSecurityDeviceFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,24 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\PhysicalSecurityDevice
  */
-class PhysicalSecurityDevice extends Model implements HasIcon
+class PhysicalSecurityDevice extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'physical_security_devices';
 
-    public static array $searchable = [
-        'name',
-        'type',
-        'attributes',
-        'description',
-    ];
-
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    public static string $prefix = 'PSECURITY_';
 
     protected $fillable = [
         'name',
@@ -45,6 +35,30 @@ class PhysicalSecurityDevice extends Model implements HasIcon
         'building_id',
         'bay_id',
     ];
+
+    public static array $searchable = [
+        'name',
+        'type',
+        'attributes',
+        'description',
+        'address_ip',
+    ];
+
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\ClusterFactory;
 use Mercator\Core\Traits\Auditable;
@@ -15,17 +16,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Cluster
  */
-class Cluster extends Model implements HasIcon
+class Cluster extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'clusters';
+
+    public static string $prefix = 'CLUST_';
 
     public static array $searchable = [
         'name',
         'description',
         'type',
         'attributes',
+        'address_ip',
     ];
 
     protected array $dates = [
@@ -42,6 +46,16 @@ class Cluster extends Model implements HasIcon
         'description',
         'address_ip',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

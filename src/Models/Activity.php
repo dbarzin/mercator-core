@@ -2,11 +2,10 @@
 
 namespace Mercator\Core\Models;
 
-use http\QueryString;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityFactory;
-use Mercator\Core\Factories\UserFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,25 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Activity
  */
-class Activity extends Model
+class Activity extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'activities';
 
     public static string $prefix = 'ACTIV_';
-
-    public static array $searchable = [
-        'name',
-        'description',
-        'drp',
-    ];
-
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
 
     protected $fillable = [
         'name',
@@ -53,6 +40,18 @@ class Activity extends Model
         'maximum_tolerable_data_loss',
         'drp',
         'drp_link',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public static array $searchable = [
+        'name',
+        'description',
+        'drp',
+    ];
+
+    protected array $dates = [
         'created_at',
         'updated_at',
         'deleted_at',

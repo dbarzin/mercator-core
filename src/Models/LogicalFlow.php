@@ -3,7 +3,6 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\LogicalFlowFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,6 +51,7 @@ class LogicalFlow extends Model
         'workstation_source_id',
         'physical_security_device_source_id',
         'security_device_source_id',
+        'subnetwork_source_id',
         // Destinations
         'logical_server_dest_id',
         'peripheral_dest_id',
@@ -60,11 +60,50 @@ class LogicalFlow extends Model
         'workstation_dest_id',
         'physical_security_device_dest_id',
         'security_device_dest_id',
+        'subnetwork_dest_id',
         // Others
         'users',
         'schedule',
         'action',
     ];
+
+    /**
+     * Mapping des champs ID vers les noms de relations pour les sources
+     */
+    private const SOURCE_RELATIONS = [
+        'logical_server_source_id' => 'logicalServerSource',
+        'peripheral_source_id' => 'peripheralSource',
+        'physical_server_source_id' => 'physicalServerSource',
+        'storage_device_source_id' => 'storageDeviceSource',
+        'workstation_source_id' => 'workstationSource',
+        'physical_security_device_source_id' => 'physicalSecurityDeviceSource',
+        'security_device_source_id' => 'securityDeviceSource',
+        'subnetwork_source_id' => 'subnetworkSource',
+    ];
+
+    /**
+     * Mapping des champs ID vers les noms de relations pour les destinations
+     */
+    private const DEST_RELATIONS = [
+        'logical_server_dest_id' => 'logicalServerDest',
+        'peripheral_dest_id' => 'peripheralDest',
+        'physical_server_dest_id' => 'physicalServerDest',
+        'storage_device_dest_id' => 'storageDeviceDest',
+        'workstation_dest_id' => 'workstationDest',
+        'physical_security_device_dest_id' => 'physicalSecurityDeviceDest',
+        'security_device_dest_id' => 'securityDeviceDest',
+        'subnetwork_dest_id' => 'subnetworkDest',
+    ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {
@@ -114,6 +153,7 @@ class LogicalFlow extends Model
     {
         return $this->belongsTo(Subnetwork::class, 'subnetwork_source_id');
     }
+
     /** @return BelongsTo<SecurityDevice, $this> */
     public function securityDeviceSource(): BelongsTo
     {
@@ -163,10 +203,19 @@ class LogicalFlow extends Model
     {
         return $this->belongsTo(Subnetwork::class, 'subnetwork_dest_id');
     }
+
     /** @return BelongsTo<SecurityDevice, $this> */
     public function securityDeviceDest(): BelongsTo
     {
         return $this->belongsTo(SecurityDevice::class, 'security_device_dest_id');
+    }
+
+    /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ Router ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
+
+    /** @return BelongsTo<Router, $this> */
+    public function router(): BelongsTo
+    {
+        return $this->belongsTo(Router::class, 'router_id');
     }
 
     /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ IP ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
@@ -185,79 +234,67 @@ class LogicalFlow extends Model
             $this->contains($this->dest_ip_range, $ip);
     }
 
-    /** @return BelongsTo<Router, $this> */
-    public function router(): BelongsTo
-    {
-        return $this->belongsTo(Router::class, 'router_id');
-    }
+    /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ UIDs ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
 
+    /**
+     * Retourne l'UID de la source (ex: "LSERVER_42")
+     * Utilise le préfixe statique défini dans chaque modèle
+     */
     public function sourceId(): ?string
     {
-        if ($this->logical_server_source_id !== null) {
-            return 'LSERVER_'.$this->logical_server_source_id;
-        }
-        if ($this->peripheral_source_id !== null) {
-            return 'PERIF_'.$this->peripheral_source_id;
-        }
-        if ($this->physical_server_source_id !== null) {
-            return 'PSERVER_'.$this->physical_server_source_id;
-        }
-        if ($this->storage_device_source_id !== null) {
-            return 'STORAGE_'.$this->storage_device_source_id;
-        }
-        if ($this->workstation_source_id !== null) {
-            return 'WORK_'.$this->workstation_source_id;
-        }
-        if ($this->physical_security_device_source_id !== null) {
-            return 'PSECURITY_'.$this->physical_security_device_source_id;
-        }
-        if ($this->security_device_source_id !== null) {
-            return 'LSECURITY_'.$this->security_device_source_id;
-        }
-        if ($this->subnetwork_source_id !== null) {
-            return 'SUBNETWORK_'.$this->subnetwork_source_id;
-        }
-
-        return null;
-    }
-
-    public function destinationId(): ?string
-    {
-        if ($this->logical_server_dest_id !== null) {
-            return 'LSERVER_'.$this->logical_server_dest_id;
-        }
-        if ($this->peripheral_dest_id !== null) {
-            return 'PERIF_'.$this->peripheral_dest_id;
-        }
-        if ($this->physical_server_dest_id !== null) {
-            return 'PSERVER_'.$this->physical_server_dest_id;
-        }
-        if ($this->storage_device_dest_id !== null) {
-            return 'STORAGE_'.$this->storage_device_dest_id;
-        }
-        if ($this->workstation_dest_id !== null) {
-            return 'WORK_'.$this->workstation_dest_id;
-        }
-        if ($this->physical_security_device_dest_id !== null) {
-            return 'PSECURITY_'.$this->physical_security_device_dest_id;
-        }
-        if ($this->security_device_dest_id !== null) {
-            return 'LSECURITY_'.$this->security_device_dest_id;
-        }
-        if ($this->subnetwork_dest_id !== null) {
-            return 'SUBNETWORK_'.$this->subnetwork_dest_id;
-        }
-
-        return null;
+        return $this->getEntityUID(self::SOURCE_RELATIONS);
     }
 
     /**
-     * Does the given IP match the CIDR prefix
+     * Retourne l'UID de la destination (ex: "WORK_15")
+     * Utilise le préfixe statique défini dans chaque modèle
+     */
+    public function destinationId(): ?string
+    {
+        return $this->getEntityUID(self::DEST_RELATIONS);
+    }
+
+    /**
+     * Récupère l'UID d'une entité sans charger la relation complète
+     * Utilise la propriété statique $prefix de chaque modèle
+     *
+     * @param array<string, string> $relations Mapping field => relationName
+     * @return string|null L'UID construit (PREFIX_ID) ou null si aucune relation n'est définie
+     */
+    private function getEntityUID(array $relations): ?string
+    {
+        foreach ($relations as $field => $relationName) {
+            if ($this->$field !== null) {
+                // Récupère la classe du modèle via la relation
+                $relation = $this->$relationName();
+                $modelClass = get_class($relation->getRelated());
+
+                // Utilise le préfixe statique de la classe cible
+                // Ex: LogicalServer::$prefix = "LSERVER_"
+                if (property_exists($modelClass, 'prefix')) {
+                    return $modelClass::$prefix . $this->$field;
+                }
+
+                // Fallback si le modèle n'a pas de préfixe (ne devrait pas arriver)
+                throw new \LogicException(
+                    sprintf('Model %s must have a static $prefix property', $modelClass)
+                );
+            }
+        }
+
+        return null;
+    }
+
+    /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ Private ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
+
+    /**
+     * Vérifie si une IP est contenue dans un CIDR
+     * Supporte IPv4 et IPv6
      */
     private function contains(string $cidr, string $ip): bool
     {
         if ((str_contains($ip, '.') && str_contains($cidr, '.')) ||
-              (str_contains($ip, ':') && str_contains($cidr, ':'))) {
+            (str_contains($ip, ':') && str_contains($cidr, ':'))) {
             // Get mask bits
             [$net, $maskBits] = explode('/', $cidr);
 

@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\TaskFactory;
 use Mercator\Core\Traits\Auditable;
@@ -15,13 +16,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Task
  */
-class Task extends Model
+class Task extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'tasks';
 
     public static string $prefix = 'TASK_';
+
+    protected $fillable = [
+        'name',
+        'description',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     public static array $searchable = [
         'name',
@@ -34,18 +43,6 @@ class Task extends Model
         'deleted_at',
     ];
 
-    protected $fillable = [
-        'name',
-        'description',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
-    protected static function newFactory(): Factory
-    {
-        return TaskFactory::new();
-    }
 
     public function getPrefix(): string
     {
@@ -55,6 +52,11 @@ class Task extends Model
     public function getUID(): string
     {
         return $this->getPrefix() . $this->id;
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return TaskFactory::new();
     }
 
     /** @return BelongsToMany<Operation, $this> */

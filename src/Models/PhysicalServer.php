@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\PhysicalServerFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,25 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\PhysicalServer
  */
-class PhysicalServer extends Model implements HasIcon
+class PhysicalServer extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'physical_servers';
 
-    public static array $searchable = [
-        'name',
-        'type',
-        'description',
-        'configuration',
-        'responsible',
-    ];
-
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    public static string $prefix = 'PSERVER_';
 
     protected $fillable = [
         'name',
@@ -57,6 +46,31 @@ class PhysicalServer extends Model implements HasIcon
         'updated_at',
         'deleted_at',
     ];
+
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public static array $searchable = [
+        'name',
+        'type',
+        'description',
+        'configuration',
+        'responsible',
+        'address_ip',
+    ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

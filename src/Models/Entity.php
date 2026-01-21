@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\EntityFactory;
 use Mercator\Core\Traits\Auditable;
@@ -17,11 +18,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Entity
  */
-class Entity extends Model implements HasIcon
+class Entity extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'entities';
+
+    public static string $prefix = 'ENTITY_';
 
     public static array $searchable = [
         'name',
@@ -46,6 +49,16 @@ class Entity extends Model implements HasIcon
         'entity_type',
         'parent_entity_id',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

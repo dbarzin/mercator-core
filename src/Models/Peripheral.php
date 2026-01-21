@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\PeripheralFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,17 +16,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Peripheral
  */
-class Peripheral extends Model implements HasIcon
+class Peripheral extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'peripherals';
+
+    public static string $prefix = 'PERIF_';
 
     public static array $searchable = [
         'name',
         'type',
         'description',
         'responsible',
+        'address_ip',
     ];
 
     protected array $dates = [
@@ -53,6 +57,16 @@ class Peripheral extends Model implements HasIcon
         'updated_at',
         'deleted_at',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

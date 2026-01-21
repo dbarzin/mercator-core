@@ -15,22 +15,22 @@ class PhysicalLink extends Model
 {
     use Auditable, HasFactory, SoftDeletes;
 
-    public static $searchable = [
-    ];
-
     public $table = 'physical_links';
-
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
 
     protected $fillable = [
         'src_port',
         'dest_port',
         'peripheral_src_id', 'phone_src_id', 'physical_router_src_id', 'physical_security_device_src_id', 'physical_server_src_id', 'physical_switch_src_id', 'storage_device_src_id', 'wifi_terminal_src_id', 'workstation_src_id', 'logical_server_src_id', 'network_switch_src_id', 'router_src_id',
         'peripheral_dest_id', 'phone_dest_id', 'physical_router_dest_id', 'physical_security_device_dest_id', 'physical_server_dest_id', 'physical_switch_dest_id', 'storage_device_dest_id', 'wifi_terminal_dest_id', 'workstation_dest_id', 'logical_server_dest_id', 'network_switch_dest_id', 'router_dest_id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public static $searchable = [
+    ];
+
+    protected array $dates = [
         'created_at',
         'updated_at',
         'deleted_at',

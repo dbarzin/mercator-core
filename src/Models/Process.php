@@ -5,6 +5,7 @@ namespace Mercator\Core\Models;
 use Illuminate\Support\Collection;
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\ProcessFactory;
 use Mercator\Core\Traits\Auditable;
@@ -18,27 +19,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Process
  */
-class Process extends Model implements HasIcon
+class Process extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'processes';
 
-    public static string $prefix = 'PROC_';
-
-    public static array $searchable = [
-        'name',
-        'description',
-        'icon_id',
-        'in_out',
-        'owner',
-    ];
-
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    public static string $prefix = 'PROCESS_';
 
     protected $fillable = [
         'name',
@@ -55,6 +42,21 @@ class Process extends Model implements HasIcon
         'updated_at',
         'deleted_at',
     ];
+
+    public static array $searchable = [
+        'name',
+        'description',
+        'icon_id',
+        'in_out',
+        'owner',
+    ];
+
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
 
     protected static function newFactory(): Factory
     {

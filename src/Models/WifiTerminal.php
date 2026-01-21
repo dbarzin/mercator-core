@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\WifiTerminalFactory;
 use Mercator\Core\Traits\Auditable;
@@ -14,15 +15,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\WifiTerminal
  */
-class WifiTerminal extends Model
+class WifiTerminal extends Model implements HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'wifi_terminals';
 
+    public static string $prefix = 'WIFI_';
+
     public static array $searchable = [
         'name',
         'description',
+        'address_ip',
     ];
 
     protected array $dates = [
@@ -45,6 +49,16 @@ class WifiTerminal extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {

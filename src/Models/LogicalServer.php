@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\LogicalServerFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,11 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\LogicalServer
  */
-class LogicalServer extends Model implements HasIcon
+class LogicalServer extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'logical_servers';
+
+    public static string $prefix = 'LSERVER_';
 
     public static array $searchable = [
         'name',
@@ -27,6 +30,7 @@ class LogicalServer extends Model implements HasIcon
         'description',
         'configuration',
         'net_services',
+        'address_ip',
     ];
 
     protected array $dates = [
@@ -60,6 +64,16 @@ class LogicalServer extends Model implements HasIcon
         'updated_at',
         'deleted_at',
     ];
+
+    public function getPrefix(): string
+    {
+        return self::$prefix;
+    }
+
+    public function getUID(): string
+    {
+        return $this->getPrefix() . $this->id;
+    }
 
     protected static function newFactory(): Factory
     {
