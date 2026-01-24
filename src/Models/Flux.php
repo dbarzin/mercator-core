@@ -138,7 +138,7 @@ class Flux extends Model implements HasUniqueIdentifier
     }
 
     /** @return BelongsToMany<Information, $this> */
-    public function information(): BelongsToMany
+    public function informations(): BelongsToMany
     {
         return $this->belongsToMany(Information::class, 'flux_information');
     }
