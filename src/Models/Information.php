@@ -82,6 +82,12 @@ class Information extends Model implements HasUniqueIdentifier
         return $this->belongsToMany(Process::class)->orderBy('name');
     }
 
+    /** @return BelongsToMany<Flux, $this> */
+    public function fluxes(): BelongsToMany
+    {
+        return $this->belongsToMany(Flux::class, 'flux_information');
+    }
+
     public function graphs(): Collection
     {
         return once(fn() => Graph::query()

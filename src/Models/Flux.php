@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\FluxFactory;
 use Mercator\Core\Traits\Auditable;
@@ -134,6 +135,12 @@ class Flux extends Model implements HasUniqueIdentifier
         }
 
         return null;
+    }
+
+    /** @return BelongsToMany<Information, $this> */
+    public function information(): BelongsToMany
+    {
+        return $this->belongsToMany(Information::class, 'flux_information');
     }
 
     /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ Relations ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
