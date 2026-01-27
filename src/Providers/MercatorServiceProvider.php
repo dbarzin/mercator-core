@@ -103,12 +103,14 @@ class MercatorServiceProvider extends ServiceProvider
         else {
             // Running in Web
 
-            // Enregistrer les directives Blade
-            $this->registerBladeDirectives();
 
             // Enregistrer les Gates
             $this->registerGates();
         }
+
+        // Enregistrer les directives Blade
+        // (nécessaire en console et web pour les tests Pest)
+        $this->registerBladeDirectives();
 
         // Auto-découvrir les modules au boot (si la base est prête)
         // No this is done manually once at install time
@@ -188,7 +190,7 @@ class MercatorServiceProvider extends ServiceProvider
 
         // Gate pour vérifier si un module est disponible (activé ET licencié)
         Gate::define('use-module', function ($user, string $module) use ($licenseService, $moduleRegistry) {
-            return $moduleRegistry->isEnabled($module) && $licenseService->hasModuleAccess($module);
+            return $moduleRegistry->isEnabled($module) && $licenseService->hasMhasModuleAccess($module);
         });
 
         // Gate pour vérifier le type de licence
