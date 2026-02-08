@@ -12,13 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\PhysicalSecurityDevice
  */
 class PhysicalSecurityDevice extends Model implements HasIcon, HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
 
     public $table = 'physical_security_devices';
 

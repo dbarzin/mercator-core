@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasNumericFilters;
 
 class PhysicalLink extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
 
     public $table = 'physical_links';
 

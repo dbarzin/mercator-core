@@ -12,13 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\Relation
  */
 class Relation extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
 
     public $table = 'relations';
 

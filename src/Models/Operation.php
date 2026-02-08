@@ -13,13 +13,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\Operation
  */
 class Operation extends Model implements HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
 
     public $table = 'operations';
 

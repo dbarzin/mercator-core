@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Mercator\Core\Factories\AuditLogFactory;
+use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\AuditLog
  */
 class AuditLog extends Model
 {
-    use HasFactory;
+    use HasFactory, HasNumericFilters;
 
     public $table = 'audit_logs';
 

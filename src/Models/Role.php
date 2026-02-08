@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
 use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\RoleFactory;
+use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\Role
  */
 class Role extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasNumericFilters;
 
     public $table = 'roles';
 
