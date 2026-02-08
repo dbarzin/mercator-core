@@ -5,7 +5,6 @@ namespace Mercator\Core\Models;
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\BuildingFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,14 +13,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
-use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\Building
  */
 class Building extends Model implements HasIcon, HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
+    use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'buildings';
 

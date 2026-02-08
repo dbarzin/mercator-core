@@ -8,16 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\RoleFactory;
-use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\Role
  */
 class Role extends Model
 {
-    use HasFactory, SoftDeletes, HasNumericFilters;
+    use HasFactory, SoftDeletes;
 
     public $table = 'roles';
 

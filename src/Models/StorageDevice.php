@@ -4,7 +4,6 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\StorageDeviceFactory;
 use Mercator\Core\Traits\Auditable;
 use DateTimeInterface;
@@ -12,14 +11,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\StorageDevice
  */
 class StorageDevice extends Model implements HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
+    use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'storage_devices';
 

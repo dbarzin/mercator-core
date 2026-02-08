@@ -3,18 +3,16 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\PhysicalLinkFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Mercator\Core\Traits\HasNumericFilters;
 
 class PhysicalLink extends Model
 {
-    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
+    use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'physical_links';
 

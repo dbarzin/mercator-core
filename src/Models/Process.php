@@ -14,14 +14,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\Process
  */
 class Process extends Model implements HasIcon, HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
+    use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'processes';
 

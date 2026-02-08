@@ -4,7 +4,6 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\DomaineAdFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,14 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\DomaineAd
  */
 class DomaineAd extends Model implements HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
+    use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'domaine_ads';
 

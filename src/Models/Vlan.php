@@ -18,7 +18,7 @@ use Mercator\Core\Traits\HasNumericFilters;
  */
 class Vlan extends Model implements HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
+    use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'vlans';
 

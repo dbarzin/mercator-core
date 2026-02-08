@@ -3,9 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasIcon;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
-use Mercator\Core\Factories\ActivityImpactFactory;
 use Mercator\Core\Factories\BayFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,14 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Mercator\Core\Traits\HasNumericFilters;
 
 /**
  * App\Bay
  */
 class Bay extends Model implements HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes, HasNumericFilters;
+    use Auditable, HasFactory, SoftDeletes;
 
     public $table = 'bays';
 
