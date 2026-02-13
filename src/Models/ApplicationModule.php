@@ -37,6 +37,9 @@ class ApplicationModule extends Model implements HasUniqueIdentifier
     protected $fillable = [
         'name',
         'description',
+        'vendor',
+        'product',
+        'version',
         'created_at',
         'updated_at',
         'deleted_at',
