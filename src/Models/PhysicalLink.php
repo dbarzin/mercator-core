@@ -193,40 +193,40 @@ class PhysicalLink extends Model
     public function sourceId(): ?string
     {
         if ($this->peripheral_src_id !== null) {
-            return 'PERIF_'.$this->peripheral_src_id;
+            return Peripheral::$prefix . $this->peripheral_src_id;
         }
         if ($this->phone_src_id !== null) {
-            return 'PHONE_'.$this->phone_src_id;
+            return Phone::$prefix . $this->phone_src_id;
         }
         if ($this->physical_router_src_id !== null) {
-            return 'PROUTER_'.$this->physical_router_src_id;
+            return PhysicalRouter::$prefix .$this->physical_router_src_id;
         }
         if ($this->physical_security_device_src_id !== null) {
-            return 'SECURITY_'.$this->physical_security_device_src_id;
+            return PhysicalSecurityDevice::$prefix . $this->physical_security_device_src_id;
         }
         if ($this->physical_server_src_id !== null) {
-            return 'PSERVER_'.$this->physical_server_src_id;
+            return PhysicalServer::$prefix . $this->physical_server_src_id;
         }
         if ($this->physical_switch_src_id !== null) {
-            return 'SWITCH_'.$this->physical_switch_src_id;
+            return PhysicalSwitch::$prefix . $this->physical_switch_src_id;
         }
         if ($this->storage_device_src_id !== null) {
-            return 'STORAGE_'.$this->storage_device_src_id;
+            return StorageDevice::$prefix . $this->storage_device_src_id;
         }
         if ($this->wifi_terminal_src_id !== null) {
-            return 'WIFI_'.$this->wifi_terminal_src_id;
+            return WifiTerminal::$prefix . $this->wifi_terminal_src_id;
         }
         if ($this->workstation_src_id !== null) {
-            return 'WORK_'.$this->workstation_src_id;
+            return Workstation::$prefix . $this->workstation_src_id;
         }
         if ($this->logical_server_src_id !== null) {
-            return 'LSERVER_'.$this->logical_server_src_id;
+            return LogicalServer::$prefix . $this->logical_server_src_id;
         }
         if ($this->network_switch_src_id !== null) {
-            return 'LSWITCH_'.$this->network_switch_src_id;
+            return NetworkSwitch::$prefix . $this->network_switch_src_id;
         }
         if ($this->router_src_id !== null) {
-            return 'LROUTER_'.$this->router_src_id;
+            return Router::$prefix . $this->router_src_id;
         }
 
         return null;
@@ -234,42 +234,41 @@ class PhysicalLink extends Model
 
     public function destinationId(): ?string
     {
-        // dd($this, $this->workstation_dest_id, $this->workstation_dest_id!==null);
         if ($this->peripheral_dest_id !== null) {
-            return 'PERIF_'.$this->peripheral_dest_id;
+            return Peripheral::$prefix . $this->peripheral_dest_id;
         }
         if ($this->phone_dest_id !== null) {
-            return 'PHONE_'.$this->phone_dest_id;
+            return Phone::$prefix . $this->phone_dest_id;
         }
         if ($this->physical_router_dest_id !== null) {
-            return 'PROUTER_'.$this->physical_router_dest_id;
+            return PhysicalRouter::$prefix .$this->physical_router_dest_id;
         }
         if ($this->physical_security_device_dest_id !== null) {
-            return 'SECURITY_'.$this->physical_security_device_dest_id;
+            return PhysicalSecurityDevice::$prefix . $this->physical_security_device_dest_id;
         }
         if ($this->physical_server_dest_id !== null) {
-            return 'PSERVER_'.$this->physical_server_dest_id;
+            return PhysicalServer::$prefix . $this->physical_server_dest_id;
         }
         if ($this->physical_switch_dest_id !== null) {
-            return 'SWITCH_'.$this->physical_switch_dest_id;
+            return PhysicalSwitch::$prefix . $this->physical_switch_dest_id;
         }
         if ($this->storage_device_dest_id !== null) {
-            return 'STORAGE_'.$this->storage_device_dest_id;
+            return StorageDevice::$prefix . $this->storage_device_dest_id;
         }
         if ($this->wifi_terminal_dest_id !== null) {
-            return 'WIFI_'.$this->wifi_terminal_dest_id;
+            return WifiTerminal::$prefix . $this->wifi_terminal_dest_id;
         }
         if ($this->workstation_dest_id !== null) {
-            return 'WORK_'.$this->workstation_dest_id;
+            return Workstation::$prefix . $this->workstation_dest_id;
         }
         if ($this->logical_server_dest_id !== null) {
-            return 'LSERVER_'.$this->logical_server_dest_id;
+            return LogicalServer::$prefix . $this->logical_server_dest_id;
         }
         if ($this->network_switch_dest_id !== null) {
-            return 'LSWITCH_'.$this->network_switch_dest_id;
+            return NetworkSwitch::$prefix . $this->network_switch_dest_id;
         }
         if ($this->router_dest_id !== null) {
-            return 'LROUTER_'.$this->router_dest_id;
+            return Router::$prefix . $this->router_dest_id;
         }
 
         return null;
