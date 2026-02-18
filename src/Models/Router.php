@@ -20,7 +20,7 @@ class Router extends Model implements HasUniqueIdentifier
 
     public $table = 'routers';
 
-    public static string $prefix = 'ROUTER_';
+    public static string $prefix = 'LOG_ROUTER_';
 
     public static array $searchable = [
         'name',

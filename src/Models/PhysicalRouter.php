@@ -21,7 +21,7 @@ class PhysicalRouter extends Model implements HasUniqueIdentifier
 
     public $table = 'physical_routers';
 
-    public static string $prefix = 'ROUTER_';
+    public static string $prefix = 'PHYS_ROUTER_';
 
     protected $fillable = [
         'name',
