@@ -17,6 +17,8 @@ class PhysicalLink extends Model
     public $table = 'physical_links';
 
     protected $fillable = [
+        'type',
+        'color',
         'src_port',
         'dest_port',
         'peripheral_src_id', 'phone_src_id', 'physical_router_src_id', 'physical_security_device_src_id', 'physical_server_src_id', 'physical_switch_src_id', 'storage_device_src_id', 'wifi_terminal_src_id', 'workstation_src_id', 'logical_server_src_id', 'network_switch_src_id', 'router_src_id',
