@@ -3,6 +3,8 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ManFactory;
 use Mercator\Core\Traits\Auditable;
@@ -57,7 +59,7 @@ class Man extends Model implements HasUniqueIdentifier
     }
 
     /** @return BelongsToMany<Wan, $this> */
-    public function Wans(): BelongsToMany
+    public function wans(): BelongsToMany
     {
         return $this->belongsToMany(Wan::class)->orderBy('name');
     }
@@ -68,4 +70,17 @@ class Man extends Model implements HasUniqueIdentifier
     {
         return $this->belongsToMany(Lan::class)->orderBy('name');
     }
+
+    /** @return BelongsTo<Man, $this> */
+    public function parentMan(): BelongsTo
+    {
+        return $this->belongsTo(Man::class, 'parent_man_id');
+    }
+
+    /** @return HasMany<Man, $this> */
+    public function mans(): HasMany
+    {
+        return $this->hasMany(Man::class, 'parent_man_id', 'id')->orderBy('name');
+    }
+
 }
