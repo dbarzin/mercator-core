@@ -26,6 +26,7 @@ class Man extends Model implements HasUniqueIdentifier
 
     public static array $searchable = [
         'name',
+        'description',
     ];
 
     protected array $dates = [
