@@ -34,6 +34,8 @@ class Man extends Model implements HasUniqueIdentifier
 
     protected $fillable = [
         'name',
+        'description',
+        'parent_entity_id',
         'created_at',
         'updated_at',
         'deleted_at',
