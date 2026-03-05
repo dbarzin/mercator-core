@@ -3,6 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mercator\Core\Contracts\HasIcon;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\PhysicalSwitchFactory;
 use Mercator\Core\Traits\Auditable;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\PhysicalSwitch
  */
-class PhysicalSwitch extends Model implements HasUniqueIdentifier
+class PhysicalSwitch extends Model implements HasIcon, HasUniqueIdentifier
 {
     use Auditable, HasFactory, SoftDeletes;
 
@@ -25,8 +26,9 @@ class PhysicalSwitch extends Model implements HasUniqueIdentifier
 
     protected $fillable = [
         'name',
-        'description',
         'type',
+        'icon_id',
+        'description',
         'site_id',
         'building_id',
         'bay_id',
@@ -57,6 +59,19 @@ class PhysicalSwitch extends Model implements HasUniqueIdentifier
         return $this->getPrefix() . $this->id;
     }
 
+    /*
+     * Implement HasIcon
+     */
+    public function setIconId(?int $id): void
+    {
+        $this->icon_id = $id;
+    }
+
+    public function getIconId(): ?int
+    {
+        return $this->icon_id;
+    }
+
     protected static function newFactory(): Factory
     {
         return PhysicalSwitchFactory::new();
@@ -85,4 +100,5 @@ class PhysicalSwitch extends Model implements HasUniqueIdentifier
     {
         return $this->belongsToMany(NetworkSwitch::class)->orderBy('name');
     }
+
 }
