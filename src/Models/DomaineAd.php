@@ -21,7 +21,7 @@ class DomaineAd extends Model implements HasUniqueIdentifier
 
     public $table = 'domaine_ads';
 
-    public static string $prefix = 'ENTITY_';
+    public static string $prefix = 'DOMAIN_';
 
     public static array $searchable = [
         'name',
