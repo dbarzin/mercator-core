@@ -52,6 +52,7 @@ class LogicalFlow extends Model
         'physical_security_device_source_id',
         'security_device_source_id',
         'subnetwork_source_id',
+        'cluster_source_id',
         // Destinations
         'logical_server_dest_id',
         'peripheral_dest_id',
@@ -61,6 +62,7 @@ class LogicalFlow extends Model
         'physical_security_device_dest_id',
         'security_device_dest_id',
         'subnetwork_dest_id',
+        'cluster_dest_id',
         // Others
         'users',
         'schedule',
@@ -79,6 +81,7 @@ class LogicalFlow extends Model
         'physical_security_device_source_id' => 'physicalSecurityDeviceSource',
         'security_device_source_id' => 'securityDeviceSource',
         'subnetwork_source_id' => 'subnetworkSource',
+        'cluster_source_id' => 'clusterSource',
     ];
 
     /**
@@ -93,6 +96,7 @@ class LogicalFlow extends Model
         'physical_security_device_dest_id' => 'physicalSecurityDeviceDest',
         'security_device_dest_id' => 'securityDeviceDest',
         'subnetwork_dest_id' => 'subnetworkDest',
+        'cluster_dest_id' => 'clusterDest',
     ];
 
     public function getPrefix(): string
@@ -160,6 +164,12 @@ class LogicalFlow extends Model
         return $this->belongsTo(SecurityDevice::class, 'security_device_source_id');
     }
 
+    /** @return BelongsTo<Cluster, $this> */
+    public function clusterSource(): BelongsTo
+    {
+        return $this->belongsTo(Cluster::class, 'cluster_source_id');
+    }
+
     /* ⋅.˳˳.⋅ॱ˙˙ॱ⋅.˳˳.⋅ॱ˙˙ॱᐧ.˳˳.⋅ Destinations ⋅.˳˳.⋅ॱ˙˙ॱ⋅.˳˳.⋅ॱ˙˙ॱᐧ.˳˳.⋅ */
 
     /** @return BelongsTo<LogicalServer, $this> */
@@ -208,6 +218,12 @@ class LogicalFlow extends Model
     public function securityDeviceDest(): BelongsTo
     {
         return $this->belongsTo(SecurityDevice::class, 'security_device_dest_id');
+    }
+
+    /** @return BelongsTo<Cluster, $this> */
+    public function clusterDest(): BelongsTo
+    {
+        return $this->belongsTo(Cluster::class, 'cluster_dest_id');
     }
 
     /* '*~-.,¸¸.-~·*'¨¯'*~-.,¸¸.-~·*'¨¯ Router ¯¨'*·~-.¸¸,.-~*''*~-.,¸¸.-~·*'¨¯ */
