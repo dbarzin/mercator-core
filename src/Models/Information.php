@@ -87,6 +87,38 @@ class Information extends Model implements HasUniqueIdentifier
         return $this->belongsToMany(Flux::class, 'flux_information');
     }
 
+
+    /**
+     * Informations membres de cette catégorie.
+     * Une information "catégorie" regroupe plusieurs informations enfants.
+     *
+     * @return BelongsToMany<Information, $this>
+     */
+    public function children(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Information::class,
+            'information_information',
+            'information_id',
+            'child_information_id'
+        )->orderBy('name');
+    }
+
+    /**
+     * Catégories (informations parentes) auxquelles appartient cette information.
+     *
+     * @return BelongsToMany<Information, $this>
+     */
+    public function parents(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Information::class,
+            'information_information',
+            'child_information_id',
+            'information_id'
+        )->orderBy('name');
+    }
+
     public function graphs(): Collection
     {
         return once(fn() => Graph::query()
