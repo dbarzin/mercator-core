@@ -40,14 +40,8 @@ class DataProcessing extends Model implements HasUniqueIdentifier
         'automated_decision_making',
     ];
 
-    protected array $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
     protected $casts = [
-        'update_date' => 'date',
+        'update_date' => 'date:Y-m-d',
     ];
 
     protected $fillable = [
