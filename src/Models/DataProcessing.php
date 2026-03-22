@@ -46,6 +46,10 @@ class DataProcessing extends Model implements HasUniqueIdentifier
         'deleted_at',
     ];
 
+    protected $casts = [
+        'update_date' => 'date',
+    ];
+
     protected $fillable = [
         'name',
         'legal_basis',
