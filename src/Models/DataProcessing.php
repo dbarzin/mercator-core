@@ -34,6 +34,10 @@ class DataProcessing extends Model implements HasUniqueIdentifier
         'retention',
         'controls',
         'lawfulness',
+        'data_source',
+        'data_collection_obligation',
+        'data_subject_rights',
+        'automated_decision_making',
     ];
 
     protected array $dates = [
@@ -60,7 +64,13 @@ class DataProcessing extends Model implements HasUniqueIdentifier
         'lawfulness_legal_obligation',
         'lawfulness_contract',
         'lawfulness_consent',
+        'data_source',
+        'data_collection_obligation',
+        'data_subject_rights',
+        'automated_decision_making',
+        'update_date'
     ];
+
     public function getPrefix(): string
     {
         return self::$prefix;
