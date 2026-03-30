@@ -38,12 +38,12 @@ class Building extends Model implements HasIcon, HasUniqueIdentifier
 
     protected $fillable = [
         'name',
+        'icon_id',
         'description',
         'type',
         'attributes',
         'site_id',
         'building_id',
-        'icon_id',
     ];
 
     public function getPrefix(): string

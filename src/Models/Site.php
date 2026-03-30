@@ -25,8 +25,8 @@ class Site extends Model implements HasIcon, HasUniqueIdentifier
 
     protected $fillable = [
         'name',
-        'description',
         'icon_id',
+        'description',
         'created_at',
         'updated_at',
         'deleted_at',

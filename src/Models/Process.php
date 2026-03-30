@@ -28,6 +28,7 @@ class Process extends Model implements HasIcon, HasUniqueIdentifier
 
     protected $fillable = [
         'name',
+        'icon_id',
         'description',
         'in_out',
         'security_need_c',

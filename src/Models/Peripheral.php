@@ -27,6 +27,7 @@ class Peripheral extends Model implements HasIcon, HasUniqueIdentifier
     public static array $searchable = [
         'name',
         'type',
+        'icon_id',
         'description',
         'responsible',
         'address_ip',

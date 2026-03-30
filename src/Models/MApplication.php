@@ -43,6 +43,9 @@ class MApplication extends Model implements HasIcon, HasUniqueIdentifier
 
     protected $fillable = [
         'name',
+        'type',
+        'attributes',
+        'icon_id',
         'application_block_id',
         'description',
         'vendor',
@@ -53,7 +56,6 @@ class MApplication extends Model implements HasIcon, HasUniqueIdentifier
         'editor',
         'technology',
         'documentation',
-        'type',
         'users',
         'responsible',
         'security_need_c',
@@ -64,7 +66,6 @@ class MApplication extends Model implements HasIcon, HasUniqueIdentifier
         'rto',
         'rpo',
         'external',
-        'attributes',
         'patching_frequency',
         'install_date',
         'update_date',

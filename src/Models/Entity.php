@@ -41,6 +41,7 @@ class Entity extends Model implements HasIcon, HasUniqueIdentifier
 
     protected $fillable = [
         'name',
+        'icon_id',
         'description',
         'security_level',
         'contact_point',

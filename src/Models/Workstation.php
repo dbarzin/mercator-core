@@ -30,6 +30,7 @@ class Workstation extends Model implements HasIcon, HasUniqueIdentifier
     protected $fillable = [
         'name',
         'type',
+        'icon_id',
         'status',
         'description',
 
