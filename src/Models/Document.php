@@ -29,6 +29,10 @@ class Document extends Model implements HasUniqueIdentifier
     ];
 
     protected $fillable = [
+        'filename',
+        'mimetype',
+        'size',
+        'hash'
     ];
 
     public function getPrefix(): string
