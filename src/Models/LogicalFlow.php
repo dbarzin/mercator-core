@@ -312,7 +312,12 @@ class LogicalFlow extends Model
         if ((str_contains($ip, '.') && str_contains($cidr, '.')) ||
             (str_contains($ip, ':') && str_contains($cidr, ':'))) {
             // Get mask bits
-            [$net, $maskBits] = explode('/', $cidr);
+            $parts = explode('/', $cidr);
+            if (count($parts) !== 2) {
+                \Log::warning("LogicalFlow: invalid CIDR format", ['cidr' => $cidr, 'id' => $this->id]);
+                return false;
+            }
+            [$net, $maskBits] = $parts;
 
             // Size
             $size = ! str_contains($ip, ':') ? 4 : 16;
