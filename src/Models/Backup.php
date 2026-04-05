@@ -56,12 +56,14 @@ class Backup extends Model implements HasUniqueIdentifier
         return BackupFactory::new();
     }
 
+    /** @return BelongsTo<LogicalServer, $this> */
     // Relations
     public function logicalServer() : BelongsTo
     {
         return $this->belongsTo(LogicalServer::class);
     }
 
+    /** @return BelongsTo<StorageDevice, $this> */
     public function storageDevice() : BelongsTo
     {
         return $this->belongsTo(StorageDevice::class);
