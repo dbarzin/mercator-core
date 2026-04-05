@@ -146,4 +146,11 @@ class LogicalServer extends Model implements HasIcon, HasUniqueIdentifier
     {
         return $this->belongsToMany(Container::class)->orderBy('name');
     }
+
+    /** @return BelongsToMany<Backup, $this> */
+    public function backups(): BelongsToMany
+    {
+        return $this->belongsToMany(Backup::class);
+    }
+
 }
