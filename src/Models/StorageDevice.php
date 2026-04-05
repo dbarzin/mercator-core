@@ -4,6 +4,7 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\StorageDeviceFactory;
 use Mercator\Core\Traits\Auditable;
@@ -82,10 +83,10 @@ class StorageDevice extends Model implements HasUniqueIdentifier
         return $this->belongsTo(Bay::class, 'bay_id');
     }
 
-    /** @return BelongsToMany<Backup, $this> */
-    public function backups(): BelongsToMany
+    /** @return HasMany<Backup, $this> */
+    public function backups(): HasMany
     {
-        return $this->belongsToMany(Backup::class);
+        return $this->hasMany(Backup::class);
     }
 
     protected function serializeDate(DateTimeInterface $date): string

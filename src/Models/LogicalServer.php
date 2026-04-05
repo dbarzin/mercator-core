@@ -2,6 +2,7 @@
 
 namespace Mercator\Core\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Mercator\Core\Contracts\HasUniqueIdentifier;
@@ -147,10 +148,9 @@ class LogicalServer extends Model implements HasIcon, HasUniqueIdentifier
         return $this->belongsToMany(Container::class)->orderBy('name');
     }
 
-    /** @return BelongsToMany<Backup, $this> */
-    public function backups(): BelongsToMany
+    /** @return HasMany<Backup, $this> */
+    public function backups(): HasMany
     {
-        return $this->belongsToMany(Backup::class);
+        return $this->hasMany(Backup::class);
     }
-
 }
