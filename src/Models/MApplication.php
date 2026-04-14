@@ -72,6 +72,12 @@ class MApplication extends Model implements HasIcon, HasUniqueIdentifier
         'next_update',
     ];
 
+    protected $casts = [
+        'patching_frequency' => 'integer',
+        'update_date'        => 'date',
+        'next_update'        => 'date',
+    ];
+
     public function getPrefix(): string
     {
         return self::$prefix;
