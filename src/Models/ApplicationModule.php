@@ -77,4 +77,11 @@ class ApplicationModule extends Model implements HasUniqueIdentifier
     {
         return $this->belongsToMany(ApplicationService::class)->orderBy('name');
     }
+
+    /** @return BelongsToMany<Entity, $this> */
+    public function entities(): BelongsToMany
+    {
+        return $this->belongsToMany(Entity::class)->orderBy('name');
+    }
+
 }
