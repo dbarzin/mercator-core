@@ -7,18 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Mercator\Core\Contracts\HasIcon;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\BackupFactory;
 use Mercator\Core\Traits\Auditable;
 
-class Backup extends Model implements HasUniqueIdentifier
+class Backup extends Model
 {
     use Auditable, HasFactory, SoftDeletes;
 
     protected $table = 'backups';
-
-    public static string $prefix = 'BACKUP_';
 
     public $incrementing = false;
     public $timestamps = false;
@@ -42,15 +38,6 @@ class Backup extends Model implements HasUniqueIdentifier
         'backup_retention' => 'integer',
     ];
 
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
     protected static function newFactory(): Factory
     {
         return BackupFactory::new();

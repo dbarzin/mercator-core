@@ -2,9 +2,7 @@
 
 namespace Mercator\Core\Models;
 
-use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\BuildingFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,17 +11,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Building
  */
-class Building extends Model implements HasIcon, HasUniqueIdentifier
+class Building extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'buildings';
 
     public static string $prefix = 'BUILD_';
+
+    public static string $icon = '/images/building.png';
 
     public static array $searchable = [
         'name',
@@ -46,40 +48,9 @@ class Building extends Model implements HasIcon, HasUniqueIdentifier
         'building_id',
     ];
 
-    public static string $icon = '/images/building.png';
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
-
     protected static function newFactory(): Factory
     {
         return BuildingFactory::new();
-    }
-
-    /*
-     * Implement HasIcon
-     */
-    public function setIconId(?int $id): void
-    {
-        $this->icon_id = $id;
-    }
-
-    public function getIconId(): ?int
-    {
-        return $this->icon_id;
-    }
-
-    public function getIcon() : string {
-        return $this->icon_id==null ?
-            self::$icon :
-            ('/admin/documents/' . $this->icon_id);
     }
 
     /** @return HasMany<Bay, $this> */

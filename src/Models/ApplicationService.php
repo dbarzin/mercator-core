@@ -3,7 +3,6 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ApplicationServiceFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,17 +10,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\ApplicationService
  */
-class ApplicationService extends Model implements HasUniqueIdentifier
+class ApplicationService extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasFactory, HasUniqueIdentifier, SoftDeletes;
 
     public $table = 'application_services';
 
     public static string $prefix = 'APPSERV_';
+
+    public static string $icon = '/images/applicationservice.png';
 
     public static array $searchable = [
         'name',
@@ -44,21 +47,6 @@ class ApplicationService extends Model implements HasUniqueIdentifier
         'deleted_at',
     ];
 
-    public static string $icon = '/images/applicationservice.png';
-
-    public function getIcon() : string {
-        return self::$icon;
-    }
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

@@ -4,7 +4,6 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActivityFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,13 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Activity
  */
-class Activity extends Model implements HasUniqueIdentifier
+class Activity extends Model
 {
-    use Auditable, HasIcon, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'activities';
 
@@ -59,16 +59,6 @@ class Activity extends Model implements HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

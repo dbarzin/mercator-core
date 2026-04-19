@@ -3,24 +3,27 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\PhoneFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Phone
  */
-class Phone extends Model implements HasUniqueIdentifier
+class Phone extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, HasUniqueIdentifier, HasIcon, SoftDeletes;
 
     public $table = 'phones';
 
     public static string $prefix = 'PHONE_';
+
+    public static string $icon = '/images/phone.png';
 
     public static array $searchable = [
         'name',
@@ -45,16 +48,6 @@ class Phone extends Model implements HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

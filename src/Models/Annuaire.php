@@ -3,24 +3,27 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\AnnuaireFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Annuaire *
  */
-class Annuaire extends Model implements HasUniqueIdentifier
+class Annuaire extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use HasIcon, Auditable, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'annuaires';
 
     public static string $prefix = 'ANNUAIRE_';
+
+    public static string $icon = '/images/annuaire.png';
 
     public static array $searchable = [
         'name',
@@ -44,21 +47,6 @@ class Annuaire extends Model implements HasUniqueIdentifier
         'deleted_at',
     ];
 
-    public static string $icon = '/images/annuaire.png';
-
-    public function getIcon() : string {
-        return self::$icon;
-    }
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

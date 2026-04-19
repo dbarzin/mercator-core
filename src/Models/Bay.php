@@ -3,7 +3,6 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\BayFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,17 +10,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Bay
  */
-class Bay extends Model implements HasUniqueIdentifier
+class Bay extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'bays';
 
     public static string $prefix = 'BAY_';
+
+    public static string $icon = '/images/bay.png';
 
     public static array $searchable = [
         'name',
@@ -42,22 +45,6 @@ class Bay extends Model implements HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-    public static string $icon = '/images/bay.png';
-
-    public function getIcon() : string {
-        return self::$icon;
-    }
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

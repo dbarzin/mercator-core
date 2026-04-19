@@ -4,7 +4,6 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\OperationFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,17 +11,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Operation
  */
-class Operation extends Model implements HasUniqueIdentifier
+class Operation extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'operations';
 
     public static string $prefix = 'OPERATION_';
+
+    public static string $icon = '/images/operation.png';
 
     public static array $searchable = [
         'name',
@@ -47,16 +50,6 @@ class Operation extends Model implements HasUniqueIdentifier
     protected static function newFactory(): Factory
     {
         return OperationFactory::new();
-    }
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
     }
 
     /** @return BelongsTo<Process, $this> */

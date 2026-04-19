@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\LogicalFlow
  */
 class LogicalFlow extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'logical_flows';
 
@@ -98,16 +99,6 @@ class LogicalFlow extends Model
         'subnetwork_dest_id' => 'subnetworkDest',
         'cluster_dest_id' => 'clusterDest',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

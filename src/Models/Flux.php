@@ -4,20 +4,20 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\FluxFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * Flux Applicatif
  */
-class Flux extends Model implements HasUniqueIdentifier
+class Flux extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, HasUniqueIdentifier, SoftDeletes;
 
     public $table = 'fluxes';
 
@@ -70,16 +70,6 @@ class Flux extends Model implements HasUniqueIdentifier
         'module_dest_id' => 'module_dest',
         'database_dest_id' => 'database_dest',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

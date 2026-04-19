@@ -2,26 +2,28 @@
 
 namespace Mercator\Core\Models;
 
-use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ContainerFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Container
  */
-class Container extends Model implements HasIcon, HasUniqueIdentifier
+class Container extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'containers';
 
     public static string $prefix = 'CONT_';
+
+    public static string $icon = '/images/container.png';
 
     public static array $searchable = [
         'name',
@@ -44,32 +46,9 @@ class Container extends Model implements HasIcon, HasUniqueIdentifier
         'deleted_at',
     ];
 
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
-
     protected static function newFactory(): Factory
     {
         return ContainerFactory::new();
-    }
-
-    /*
-     * Implement HasIcon
-     */
-    public function setIconId(?int $id): void
-    {
-        $this->icon_id = $id;
-    }
-
-    public function getIconId(): ?int
-    {
-        return $this->icon_id;
     }
 
     /** @return BelongsToMany<MApplication, $this> */

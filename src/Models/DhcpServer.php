@@ -3,23 +3,25 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\DhcpServerFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\DhcpServer
  */
-class DhcpServer extends Model implements HasUniqueIdentifier
+class DhcpServer extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, HasUniqueIdentifier, SoftDeletes;
 
     public $table = 'dhcp_servers';
 
     public static string $prefix = 'DHCP_';
+
+    public static string $icon = '/images/dhcp.png';
 
     public static array $searchable = [
         'name',
@@ -41,16 +43,6 @@ class DhcpServer extends Model implements HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

@@ -3,9 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\StorageDeviceFactory;
 use Mercator\Core\Traits\Auditable;
 use DateTimeInterface;
@@ -13,17 +11,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\StorageDevice
  */
-class StorageDevice extends Model implements HasUniqueIdentifier
+class StorageDevice extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'storage_devices';
 
     public static string $prefix = 'STORAGE_';
+
+    public static string $icon = '/images/storagedevice.png';
 
     public static array $searchable = [
         'name',
@@ -49,16 +51,6 @@ class StorageDevice extends Model implements HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

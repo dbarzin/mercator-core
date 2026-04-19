@@ -4,20 +4,21 @@ namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ActorFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Actor
  */
-class Actor extends Model implements HasUniqueIdentifier
+class Actor extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use HasIcon, Auditable, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'actors';
 
@@ -45,16 +46,6 @@ class Actor extends Model implements HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

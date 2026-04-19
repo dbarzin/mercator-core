@@ -3,9 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\LogicalServerFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,17 +11,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\LogicalServer
  */
-class LogicalServer extends Model implements HasIcon, HasUniqueIdentifier
+class LogicalServer extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'logical_servers';
 
     public static string $prefix = 'LSERVER_';
+
+    public static string $icon = '/images/lserver.png';
 
     public static array $searchable = [
         'name',
@@ -72,32 +74,9 @@ class LogicalServer extends Model implements HasIcon, HasUniqueIdentifier
         'next_update'        => 'date',
     ];
 
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
-
     protected static function newFactory(): Factory
     {
         return LogicalServerFactory::new();
-    }
-
-    /*
-     * Implement HasIcon
-     */
-    public function setIconId(?int $id): void
-    {
-        $this->icon_id = $id;
-    }
-
-    public function getIconId(): ?int
-    {
-        return $this->icon_id;
     }
 
     /** @return BelongsToMany<MApplication, $this> */

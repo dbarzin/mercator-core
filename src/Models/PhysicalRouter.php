@@ -3,7 +3,6 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\PhysicalRouterFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,17 +10,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\PhysicalRouter
  */
-class PhysicalRouter extends Model implements HasUniqueIdentifier
+class PhysicalRouter extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, HasUniqueIdentifier, SoftDeletes;
 
     public $table = 'physical_routers';
 
     public static string $prefix = 'PHYS_ROUTER_';
+
+    public static string $icon = '/images/router.png';
 
     protected $fillable = [
         'name',
@@ -46,16 +48,6 @@ class PhysicalRouter extends Model implements HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
 
     protected static function newFactory(): Factory
     {

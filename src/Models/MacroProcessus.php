@@ -3,24 +3,27 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\MacroProcessusFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\MacroProcessus
  */
-class MacroProcessus extends Model implements HasUniqueIdentifier
+class MacroProcessus extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasFactory, HasUniqueIdentifier, SoftDeletes;
 
     public $table = 'macro_processuses';
 
     public static string $prefix = 'MACROPROCESS_';
+
+    public static string $icon = '/images/macroprocess.png';
 
     protected $fillable = [
         'name',
@@ -53,16 +56,6 @@ class MacroProcessus extends Model implements HasUniqueIdentifier
     protected static function newFactory(): Factory
     {
         return MacroProcessusFactory::new();
-    }
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
     }
 
     /** @return HasMany<Process, $this> */

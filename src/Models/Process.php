@@ -3,9 +3,7 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Support\Collection;
-use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\ProcessFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,17 +12,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Process
  */
-class Process extends Model implements HasIcon, HasUniqueIdentifier
+class Process extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, HasUniqueIdentifier, HasIcon, SoftDeletes;
 
     public $table = 'processes';
 
     public static string $prefix = 'PROCESS_';
+
+    public static string $icon = '/images/process.png';
 
     protected $fillable = [
         'name',
@@ -61,29 +63,6 @@ class Process extends Model implements HasIcon, HasUniqueIdentifier
     protected static function newFactory(): Factory
     {
         return ProcessFactory::new();
-    }
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
-
-    /*
-     * Implement HasIcon
-     */
-    public function setIconId(?int $id): void
-    {
-        $this->icon_id = $id;
-    }
-
-    public function getIconId(): ?int
-    {
-        return $this->icon_id;
     }
 
     /** @return BelongsToMany<Information, $this> */

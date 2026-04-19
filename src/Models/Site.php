@@ -2,26 +2,28 @@
 
 namespace Mercator\Core\Models;
 
-use Mercator\Core\Contracts\HasIcon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\SiteFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\Site
  */
-class Site extends Model implements HasIcon, HasUniqueIdentifier
+class Site extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'sites';
 
     public static string $prefix = 'SITE_';
+
+    public static string $icon = '/images/site.png';
 
     protected $fillable = [
         'name',
@@ -44,32 +46,9 @@ class Site extends Model implements HasIcon, HasUniqueIdentifier
     ];
 
 
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
-
     protected static function newFactory(): Factory
     {
         return SiteFactory::new();
-    }
-
-    /*
-     * Implement HasIcon
-     */
-    public function setIconId(?int $id): void
-    {
-        $this->icon_id = $id;
-    }
-
-    public function getIconId(): ?int
-    {
-        return $this->icon_id;
     }
 
     /** @return HasMany<Building, $this> */

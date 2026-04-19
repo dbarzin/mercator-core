@@ -3,8 +3,6 @@
 namespace Mercator\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mercator\Core\Contracts\HasIcon;
-use Mercator\Core\Contracts\HasUniqueIdentifier;
 use Mercator\Core\Factories\PhysicalSwitchFactory;
 use Mercator\Core\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,17 +10,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
+use Mercator\Core\Traits\HasUniqueIdentifier;
 
 /**
  * App\PhysicalSwitch
  */
-class PhysicalSwitch extends Model implements HasIcon, HasUniqueIdentifier
+class PhysicalSwitch extends Model
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasUniqueIdentifier, HasFactory, SoftDeletes;
 
     public $table = 'physical_switches';
 
     public static string $prefix = 'SWITCH_';
+
+    public static string $icon = '/images/switch.png';
 
     protected $fillable = [
         'name',
@@ -48,29 +50,6 @@ class PhysicalSwitch extends Model implements HasIcon, HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-    public function getPrefix(): string
-    {
-        return self::$prefix;
-    }
-
-    public function getUID(): string
-    {
-        return $this->getPrefix() . $this->id;
-    }
-
-    /*
-     * Implement HasIcon
-     */
-    public function setIconId(?int $id): void
-    {
-        $this->icon_id = $id;
-    }
-
-    public function getIconId(): ?int
-    {
-        return $this->icon_id;
-    }
 
     protected static function newFactory(): Factory
     {
