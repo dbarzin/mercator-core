@@ -11,17 +11,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
 
 /**
  * App\AdminUser
  */
 class AdminUser extends Model implements HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasFactory, SoftDeletes, HasIcon;
 
     public $table = 'admin_users';
 
     public static string $prefix = 'USER_';
+
+    public static string $icon = '/images/actor.png';
 
     public static $searchable = [
         'user_id',
@@ -41,6 +44,7 @@ class AdminUser extends Model implements HasUniqueIdentifier
         'user_id',
         'type',
         'attributes',
+        'icon_id',
         'firstname',
         'lastname',
         'domain_id',

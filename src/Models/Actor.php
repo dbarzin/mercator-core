@@ -23,6 +23,8 @@ class Actor extends Model implements HasUniqueIdentifier
 
     public static string $prefix = 'ACTOR_';
 
+    public static string $icon = '/images/actor.png';
+
     protected $fillable = [
         'name',
         'contact',
@@ -43,8 +45,6 @@ class Actor extends Model implements HasUniqueIdentifier
         'updated_at',
         'deleted_at',
     ];
-
-
 
     public function getPrefix(): string
     {

@@ -46,6 +46,8 @@ class Building extends Model implements HasIcon, HasUniqueIdentifier
         'building_id',
     ];
 
+    public static string $icon = '/images/building.png';
+
     public function getPrefix(): string
     {
         return self::$prefix;
@@ -72,6 +74,12 @@ class Building extends Model implements HasIcon, HasUniqueIdentifier
     public function getIconId(): ?int
     {
         return $this->icon_id;
+    }
+
+    public function getIcon() : string {
+        return $this->icon_id==null ?
+            self::$icon :
+            ('/admin/documents/' . $this->icon_id);
     }
 
     /** @return HasMany<Bay, $this> */

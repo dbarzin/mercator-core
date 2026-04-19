@@ -44,6 +44,12 @@ class ApplicationService extends Model implements HasUniqueIdentifier
         'deleted_at',
     ];
 
+    public static string $icon = '/images/applicationservice.png';
+
+    public function getIcon() : string {
+        return self::$icon;
+    }
+
     public function getPrefix(): string
     {
         return self::$prefix;

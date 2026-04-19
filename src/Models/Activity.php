@@ -12,17 +12,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mercator\Core\Traits\HasIcon;
 
 /**
  * App\Activity
  */
 class Activity extends Model implements HasUniqueIdentifier
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable, HasIcon, HasFactory, SoftDeletes;
 
     public $table = 'activities';
 
     public static string $prefix = 'ACTIV_';
+
+    public static string $icon = '/images/activity.png';
 
     protected $fillable = [
         'name',
